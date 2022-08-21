@@ -1,0 +1,7 @@
+numpy
+TA-Lib
+pandas
+python-binance
+binance
+pytest
+Faker
