@@ -1,6 +1,8 @@
 from src.service.dataset_builder import DatasetBuilder
+from src.service.search import Search
 
 dataset_builder = DatasetBuilder()
+search = Search()
 
 
 def test_from_file():

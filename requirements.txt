@@ -1,7 +1,10 @@
 numpy
-TA-Lib
 pandas
+scipy
+TA-Lib
 python-binance
 binance
 pytest
+pylint
+autopep8
 Faker

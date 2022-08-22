@@ -7,10 +7,10 @@ from src.parameters import market
 
 kLines = KLines()
 
-asset = sys.argv[2]
-interval = sys.argv[3]
-start_at = float(sys.argv[4])
-end_at = float(sys.argv[5])
+asset = sys.argv[1]
+interval = sys.argv[2]
+start_at = float(sys.argv[3])
+end_at = float(sys.argv[4])
 
 collection = kLines.build_klines(
     asset=asset,

@@ -8,8 +8,8 @@ Trade entry indicator detection library
 python -m venv .env
 source .env/bin/activate
 
-pip install -r requirements-mac.txt
-pip install --force-reinstall -r requirements-mac.txt
+pip install -r requirements.txt
+pip install --force-reinstall -r requirements.txt
 ```
 
 ### Commands
@@ -31,8 +31,8 @@ create database ta_test;
 Running tests
 
 ```
-ENV=test python -m pytest test
-ENV=test python -m pytest --log-cli-level DEBUG -s test/service/dataset_builder.py
-ENV=test python -m pytest -s test/service/dataset_builder.py
+python -m pytest test
+python -m pytest --log-cli-level DEBUG -s test/service/test_dataset_builder.py
+python -m pytest -s test/service/test_dataset_builder.py
 
 ```
