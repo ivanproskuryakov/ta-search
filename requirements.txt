@@ -6,5 +6,5 @@ python-binance
 binance
 pytest
 pylint
+flake8
 autopep8
-Faker
