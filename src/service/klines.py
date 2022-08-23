@@ -82,13 +82,13 @@ class KLines:
 
         for current in klines:
             time_open = current[0] / 1000
-            price_open = self.utility.round(current[1], 10)
-            price_high = self.utility.round(current[2], 10)
-            price_low = self.utility.round(current[3], 10)
-            price_close = self.utility.round(current[4], 10)
+            open = self.utility.round(current[1], 10)
+            high = self.utility.round(current[2], 10)
+            low = self.utility.round(current[3], 10)
+            close = self.utility.round(current[4], 10)
 
-            # price_diff = self.utility.diff_percentage(price_close, price_open)
-            # price_positive = 1 if price_diff > 0 else 0
+            # diff = self.utility.diff_percentage(close, open)
+            # positive = 1 if diff > 0 else 0
 
             volume = self.utility.round(float(current[5]), 1)
             time_close = current[6] / 1000
@@ -100,12 +100,12 @@ class KLines:
             # date = datetime.utcfromtimestamp(time_open)
 
             item = {
-                'price_open': price_open,
-                'price_high': price_high,
-                'price_low': price_low,
-                'price_close': price_close,
-                # 'price_diff': price_diff,
-                # 'price_positive': price_positive,
+                'open': open,
+                'high': high,
+                'low': low,
+                'close': close,
+                # 'diff': diff,
+                # 'positive': positive,
 
                 'time_open': time_open,
                 'time_close': time_close,

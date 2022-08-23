@@ -1,9 +1,9 @@
 [
   {
-    "price_open": 347.1,
-    "price_high": 351.4,
-    "price_low": 344.2,
-    "price_close": 344.6,
+    "open": 347.1,
+    "high": 351.4,
+    "low": 344.2,
+    "close": 344.6,
     "time_open": 1660492800.0,
     "time_close": 1660496399.999,
     "trades": 320.0,
@@ -12,10 +12,10 @@
     "quote_asset_volume": 53975.0
   },
   {
-    "price_open": 344.3,
-    "price_high": 344.3,
-    "price_low": 327.0,
-    "price_close": 331.1,
+    "open": 344.3,
+    "high": 344.3,
+    "low": 327.0,
+    "close": 331.1,
     "time_open": 1660496400.0,
     "time_close": 1660499999.999,
     "trades": 1695.0,
@@ -24,10 +24,10 @@
     "quote_asset_volume": 458632.0
   },
   {
-    "price_open": 331.1,
-    "price_high": 333.6,
-    "price_low": 328.8,
-    "price_close": 332.4,
+    "open": 331.1,
+    "high": 333.6,
+    "low": 328.8,
+    "close": 332.4,
     "time_open": 1660500000.0,
     "time_close": 1660503599.999,
     "trades": 173.0,
@@ -36,10 +36,10 @@
     "quote_asset_volume": 34235.0
   },
   {
-    "price_open": 332.4,
-    "price_high": 340.2,
-    "price_low": 332.1,
-    "price_close": 334.6,
+    "open": 332.4,
+    "high": 340.2,
+    "low": 332.1,
+    "close": 334.6,
     "time_open": 1660503600.0,
     "time_close": 1660507199.999,
     "trades": 229.0,
@@ -48,10 +48,10 @@
     "quote_asset_volume": 63145.0
   },
   {
-    "price_open": 334.6,
-    "price_high": 335.3,
-    "price_low": 333.7,
-    "price_close": 333.9,
+    "open": 334.6,
+    "high": 335.3,
+    "low": 333.7,
+    "close": 333.9,
     "time_open": 1660507200.0,
     "time_close": 1660510799.999,
     "trades": 69.0,
@@ -60,10 +60,10 @@
     "quote_asset_volume": 9537.0
   },
   {
-    "price_open": 334.0,
-    "price_high": 335.9,
-    "price_low": 333.4,
-    "price_close": 333.9,
+    "open": 334.0,
+    "high": 335.9,
+    "low": 333.4,
+    "close": 333.9,
     "time_open": 1660510800.0,
     "time_close": 1660514399.999,
     "trades": 85.0,
@@ -72,10 +72,10 @@
     "quote_asset_volume": 16139.0
   },
   {
-    "price_open": 333.9,
-    "price_high": 334.1,
-    "price_low": 332.4,
-    "price_close": 334.0,
+    "open": 333.9,
+    "high": 334.1,
+    "low": 332.4,
+    "close": 334.0,
     "time_open": 1660514400.0,
     "time_close": 1660517999.999,
     "trades": 51.0,
@@ -84,10 +84,10 @@
     "quote_asset_volume": 12025.0
   },
   {
-    "price_open": 333.4,
-    "price_high": 337.0,
-    "price_low": 333.4,
-    "price_close": 336.0,
+    "open": 333.4,
+    "high": 337.0,
+    "low": 333.4,
+    "close": 336.0,
     "time_open": 1660518000.0,
     "time_close": 1660521599.999,
     "trades": 108.0,
@@ -96,10 +96,10 @@
     "quote_asset_volume": 32387.0
   },
   {
-    "price_open": 336.1,
-    "price_high": 338.3,
-    "price_low": 335.2,
-    "price_close": 338.1,
+    "open": 336.1,
+    "high": 338.3,
+    "low": 335.2,
+    "close": 338.1,
     "time_open": 1660521600.0,
     "time_close": 1660525199.999,
     "trades": 91.0,
@@ -108,10 +108,10 @@
     "quote_asset_volume": 17342.0
   },
   {
-    "price_open": 338.1,
-    "price_high": 340.2,
-    "price_low": 337.6,
-    "price_close": 340.2,
+    "open": 338.1,
+    "high": 340.2,
+    "low": 337.6,
+    "close": 340.2,
     "time_open": 1660525200.0,
     "time_close": 1660528799.999,
     "trades": 71.0,
@@ -120,10 +120,10 @@
     "quote_asset_volume": 7640.0
   },
   {
-    "price_open": 339.9,
-    "price_high": 344.4,
-    "price_low": 339.7,
-    "price_close": 342.9,
+    "open": 339.9,
+    "high": 344.4,
+    "low": 339.7,
+    "close": 342.9,
     "time_open": 1660528800.0,
     "time_close": 1660532399.999,
     "trades": 161.0,
@@ -132,10 +132,10 @@
     "quote_asset_volume": 20062.0
   },
   {
-    "price_open": 343.2,
-    "price_high": 345.8,
-    "price_low": 342.0,
-    "price_close": 343.9,
+    "open": 343.2,
+    "high": 345.8,
+    "low": 342.0,
+    "close": 343.9,
     "time_open": 1660532400.0,
     "time_close": 1660535999.999,
     "trades": 230.0,
@@ -144,10 +144,10 @@
     "quote_asset_volume": 37997.0
   },
   {
-    "price_open": 344.0,
-    "price_high": 344.0,
-    "price_low": 340.9,
-    "price_close": 342.8,
+    "open": 344.0,
+    "high": 344.0,
+    "low": 340.9,
+    "close": 342.8,
     "time_open": 1660536000.0,
     "time_close": 1660539599.999,
     "trades": 116.0,
@@ -156,10 +156,10 @@
     "quote_asset_volume": 29784.0
   },
   {
-    "price_open": 343.0,
-    "price_high": 343.9,
-    "price_low": 341.3,
-    "price_close": 342.1,
+    "open": 343.0,
+    "high": 343.9,
+    "low": 341.3,
+    "close": 342.1,
     "time_open": 1660539600.0,
     "time_close": 1660543199.999,
     "trades": 59.0,
@@ -168,10 +168,10 @@
     "quote_asset_volume": 10542.0
   },
   {
-    "price_open": 342.1,
-    "price_high": 342.1,
-    "price_low": 335.9,
-    "price_close": 335.9,
+    "open": 342.1,
+    "high": 342.1,
+    "low": 335.9,
+    "close": 335.9,
     "time_open": 1660543200.0,
     "time_close": 1660546799.999,
     "trades": 214.0,
@@ -180,10 +180,10 @@
     "quote_asset_volume": 21886.0
   },
   {
-    "price_open": 336.2,
-    "price_high": 336.2,
-    "price_low": 333.7,
-    "price_close": 335.2,
+    "open": 336.2,
+    "high": 336.2,
+    "low": 333.7,
+    "close": 335.2,
     "time_open": 1660546800.0,
     "time_close": 1660550399.999,
     "trades": 154.0,
@@ -192,10 +192,10 @@
     "quote_asset_volume": 36260.0
   },
   {
-    "price_open": 335.0,
-    "price_high": 341.8,
-    "price_low": 334.5,
-    "price_close": 336.3,
+    "open": 335.0,
+    "high": 341.8,
+    "low": 334.5,
+    "close": 336.3,
     "time_open": 1660550400.0,
     "time_close": 1660553999.999,
     "trades": 288.0,
@@ -204,10 +204,10 @@
     "quote_asset_volume": 71169.0
   },
   {
-    "price_open": 336.6,
-    "price_high": 336.8,
-    "price_low": 334.8,
-    "price_close": 336.0,
+    "open": 336.6,
+    "high": 336.8,
+    "low": 334.8,
+    "close": 336.0,
     "time_open": 1660554000.0,
     "time_close": 1660557599.999,
     "trades": 92.0,
@@ -216,10 +216,10 @@
     "quote_asset_volume": 19219.0
   },
   {
-    "price_open": 336.3,
-    "price_high": 337.3,
-    "price_low": 335.9,
-    "price_close": 337.3,
+    "open": 336.3,
+    "high": 337.3,
+    "low": 335.9,
+    "close": 337.3,
     "time_open": 1660557600.0,
     "time_close": 1660561199.999,
     "trades": 71.0,
@@ -228,10 +228,10 @@
     "quote_asset_volume": 9780.0
   },
   {
-    "price_open": 337.1,
-    "price_high": 337.8,
-    "price_low": 335.1,
-    "price_close": 335.6,
+    "open": 337.1,
+    "high": 337.8,
+    "low": 335.1,
+    "close": 335.6,
     "time_open": 1660561200.0,
     "time_close": 1660564799.999,
     "trades": 111.0,
@@ -240,10 +240,10 @@
     "quote_asset_volume": 13950.0
   },
   {
-    "price_open": 336.3,
-    "price_high": 336.5,
-    "price_low": 333.3,
-    "price_close": 334.0,
+    "open": 336.3,
+    "high": 336.5,
+    "low": 333.3,
+    "close": 334.0,
     "time_open": 1660564800.0,
     "time_close": 1660568399.999,
     "trades": 115.0,
@@ -252,10 +252,10 @@
     "quote_asset_volume": 24436.0
   },
   {
-    "price_open": 334.3,
-    "price_high": 339.6,
-    "price_low": 334.2,
-    "price_close": 338.2,
+    "open": 334.3,
+    "high": 339.6,
+    "low": 334.2,
+    "close": 338.2,
     "time_open": 1660568400.0,
     "time_close": 1660571999.999,
     "trades": 144.0,
@@ -264,10 +264,10 @@
     "quote_asset_volume": 26328.0
   },
   {
-    "price_open": 338.2,
-    "price_high": 338.2,
-    "price_low": 337.1,
-    "price_close": 337.4,
+    "open": 338.2,
+    "high": 338.2,
+    "low": 337.1,
+    "close": 337.4,
     "time_open": 1660572000.0,
     "time_close": 1660575599.999,
     "trades": 33.0,
@@ -276,10 +276,10 @@
     "quote_asset_volume": 6347.0
   },
   {
-    "price_open": 337.0,
-    "price_high": 338.4,
-    "price_low": 336.0,
-    "price_close": 338.2,
+    "open": 337.0,
+    "high": 338.4,
+    "low": 336.0,
+    "close": 338.2,
     "time_open": 1660575600.0,
     "time_close": 1660579199.999,
     "trades": 70.0,
@@ -288,10 +288,10 @@
     "quote_asset_volume": 10597.0
   },
   {
-    "price_open": 338.1,
-    "price_high": 339.6,
-    "price_low": 337.3,
-    "price_close": 339.5,
+    "open": 338.1,
+    "high": 339.6,
+    "low": 337.3,
+    "close": 339.5,
     "time_open": 1660579200.0,
     "time_close": 1660582799.999,
     "trades": 89.0,
