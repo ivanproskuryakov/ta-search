@@ -29,23 +29,27 @@ def test_find_peaks_ldo_1h():
 
     print(df)
 
+
 def test_find_peaks_btc_1h():
     path = 'fixture/BTC_USDT_1h_1657411200.0_1658534400.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["close", "open", "high", "low"]]
-    df = search.find_peaks(df)
+    # df = df[0: 272]
+    df = search.find_peaks(df, asset="BTC")
 
     print(df)
+
 
 def test_find_peaks_shib_1h():
     path = 'fixture/SHIB_USDT_1h_1654819200.0_1655856000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["close", "open", "high", "low"]]
-    df = search.find_peaks(df)
+    df = search.find_peaks(df, asset="SHIB")
 
     print(df)
+
 
 def test_find_peaks_shib_1h_crop():
     path = 'fixture/SHIB_USDT_1h_1654819200.0_1655856000.0.json'
@@ -55,4 +59,4 @@ def test_find_peaks_shib_1h_crop():
     df = df[0: 96]
     df = search.find_peaks(df)
 
-    print(df)
+    # print(df)
