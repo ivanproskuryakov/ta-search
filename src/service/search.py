@@ -13,10 +13,6 @@ class Search:
     def __init__(self):
         self.utility = Utility()
 
-    def comparator(self, a, b):
-        print(a, b)
-        return np.less_equal
-
     def find_peaks(self, df: pd.DataFrame, asset: str) -> pd.DataFrame:
         n = 24  # number of points to be checked before and after
 
@@ -31,6 +27,7 @@ class Search:
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''
+        df['ex_max_percentage'] = ''
         df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=n)[0]]['close']
         df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=n)[0]]['close']
 
@@ -40,6 +37,17 @@ class Search:
 
         ex_min = df.query(f'ex_min > 0')
         ex_min_index = ex_min.index.values.tolist()
+
+        for id in ex_min_index:
+            max = df.query(f'index > {id} and ex_max > 0')
+            first = max[0:1]
+            if first.size > 0:
+                per = float(
+                    self.utility.diff_percentage(v1=ex_min.loc[id]['close'], v2=first['close'])
+                )
+
+                df['ex_max_percentage'].loc[id] = per
+
         ex_min_index.reverse()
 
         for id in ex_min_index:
@@ -51,12 +59,21 @@ class Search:
 
             df['ex_min_percentage'].loc[id] = -per
 
-        df['buy'] = df.apply(lambda row: self.valuation_buy(row, asset), axis=1)
+        df['buy'] = df.apply(lambda row: self.populate_buy(row, asset), axis=1)
+        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
+        df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
+        df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
         return df
 
-    def valuation_buy(self, row: pd.DataFrame, asset: str):
-        if row['ex_min_percentage'] and row['ex_min_percentage'] < -ASSET_RULE['1h'][asset]['percentage_buy']:
-            return 'buy'
+    def populate_buy(self, row: pd.DataFrame, asset: str):
+        if row['ex_min_percentage'] and row['macd'] < row['macdhist']:
+            return '[ buy'
+        else:
+            return ''
+
+    def populate_sell(self, row: pd.DataFrame):
+        if float(row['ex_max']) > 0:
+            return 'sell ]'
         else:
             return ''
