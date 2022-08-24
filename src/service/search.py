@@ -4,7 +4,6 @@ import talib.abstract as ta
 
 from scipy import signal
 from src.service.util import Utility
-from src.parameters import ASSET_RULE
 
 
 class Search:
@@ -13,11 +12,12 @@ class Search:
     def __init__(self):
         self.utility = Utility()
 
-    def find_peaks(self, df: pd.DataFrame, asset: str) -> pd.DataFrame:
-        n = 24  # number of points to be checked before and after
+    def find_peaks(self, df: pd.DataFrame) -> pd.DataFrame:
+        n = 20  # number of points to be checked before and after
 
+        df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
-        df['rsi_20'] = ta.RSI(df['close'], timeperiod=20)
+        df['rsi_20'] = ta.RSI(df['close'], timeperiod=24)
 
         macd, macdsignal, macdhist = ta.MACD(df['close'])
 
@@ -30,10 +30,7 @@ class Search:
         df['ex_max_percentage'] = ''
         df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=n)[0]]['close']
         df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=n)[0]]['close']
-
-        # df['ex_max_p'] = 0
-        # RSI_7 < 35
-        # macd < 0 or macdsignal < 0 or macdhist < 0
+        df['sell'] = ''
 
         ex_min = df.query(f'ex_min > 0')
         ex_min_index = ex_min.index.values.tolist()
@@ -59,21 +56,25 @@ class Search:
 
             df['ex_min_percentage'].loc[id] = -per
 
-        df['buy'] = df.apply(lambda row: self.populate_buy(row, asset), axis=1)
-        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
+        df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
+        df['sell'] = df.apply(lambda row: self.populate_sell(row, ex_min_index[-1]), axis=1)
+
+        # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
         return df
 
-    def populate_buy(self, row: pd.DataFrame, asset: str):
+    def populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] and row['macd'] < row['macdhist']:
-            return '[ buy'
+            return 'buy'
         else:
             return ''
 
-    def populate_sell(self, row: pd.DataFrame):
-        if float(row['ex_max']) > 0:
-            return 'sell ]'
+    def populate_sell(self, row: pd.DataFrame, min_index: pd.DataFrame):
+        if float(row['ex_max']) > 0 \
+                and (row['macd'] > row['macdsignal'] > row['macdhist']) \
+                and row['id'] > min_index:
+            return f'sell'
         else:
             return ''

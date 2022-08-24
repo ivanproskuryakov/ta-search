@@ -14,7 +14,7 @@ def test_find_peaks_auto_1h():
     path = 'fixture/AUTO_USDT_1h_1660485600.0_1660572000.0.json'
 
     df = dataset_builder.from_file(path)
-    df = df[["close", "open", "high", "low"]]
+    df = df[["open", "high", "low", "close"]]
     df = search.find_peaks(df)
 
     print(df)
@@ -24,7 +24,7 @@ def test_find_peaks_ldo_1h():
     path = 'fixture/LDO_USDT_1h_1660521600.0_1661212800.0.json'
 
     df = dataset_builder.from_file(path)
-    df = df[["close", "open", "high", "low"]]
+    df = df[["open", "high", "low", "close"]]
     df = search.find_peaks(df)
 
     print(df)
@@ -34,9 +34,18 @@ def test_find_peaks_btc_1h():
     path = 'fixture/BTC_USDT_1h_1657411200.0_1658534400.0.json'
 
     df = dataset_builder.from_file(path)
-    df = df[["close", "open", "high", "low"]]
-    # df = df[0: 272]
-    df = search.find_peaks(df, asset="BTC")
+    df = df[["open", "high", "low", "close"]]
+    df = search.find_peaks(df)
+
+    print(df)
+
+def test_find_peaks_btc_1h_crop():
+    path = 'fixture/BTC_USDT_1h_1657411200.0_1658534400.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[0: 300]
+    df = df[["open", "high", "low", "close"]]
+    df = search.find_peaks(df)
 
     print(df)
 
@@ -45,8 +54,8 @@ def test_find_peaks_shib_1h():
     path = 'fixture/SHIB_USDT_1h_1654819200.0_1655856000.0.json'
 
     df = dataset_builder.from_file(path)
-    df = df[["close", "open", "high", "low"]]
-    df = search.find_peaks(df, asset="SHIB")
+    df = df[["open", "high", "low", "close"]]
+    df = search.find_peaks(df)
 
     print(df)
 
@@ -60,3 +69,23 @@ def test_find_peaks_shib_1h_crop():
     df = search.find_peaks(df)
 
     # print(df)
+
+
+def test_find_peaks_eth_1h():
+    path = 'fixture/ETH_USDT_1h_1658448000.0_1658966400.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[["close"]]
+    df = search.find_peaks(df)
+
+    print(df)
+
+def test_find_peaks_eth_1h_crop():
+    path = 'fixture/ETH_USDT_1h_1658448000.0_1658966400.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[["close"]]
+    df = df[0: 130]
+    df = search.find_peaks(df)
+
+    print(df)
