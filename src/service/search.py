@@ -12,8 +12,14 @@ class Search:
     def __init__(self):
         self.utility = Utility()
 
-    def find_peaks(self, df: pd.DataFrame) -> pd.DataFrame:
-        n = 20  # number of points to be checked before and after
+    def find_peaks(self, df: pd.DataFrame, n: int = 20) -> pd.DataFrame:
+        """
+        Parameters
+        ----------
+        n : int
+            Number of points to be checked before and after
+            Default is 20
+        """
 
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
@@ -40,7 +46,10 @@ class Search:
             first = max[0:1]
             if first.size > 0:
                 per = float(
-                    self.utility.diff_percentage(v1=ex_min.loc[id]['close'], v2=first['close'])
+                    self.utility.diff_percentage(
+                        v1=ex_min.loc[id]['close'],
+                        v2=first['close']
+                    )
                 )
 
                 df['ex_max_percentage'].loc[id] = per
@@ -51,9 +60,11 @@ class Search:
             max = df.query(f'index < {id} and ex_max > 0')
             last = max[-1:]
             per = float(
-                self.utility.diff_percentage(v1=ex_min.loc[id]['close'], v2=last['close'])
+                self.utility.diff_percentage(
+                    v1=ex_min.loc[id]['close'],
+                    v2=last['close']
+                )
             )
-
             df['ex_min_percentage'].loc[id] = -per
 
         df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
@@ -78,3 +89,5 @@ class Search:
             return f'sell'
         else:
             return ''
+
+# and ((row['macd'] > row['macdsignal'] > row['macdhist']) or row['rsi_7'] > 80)
