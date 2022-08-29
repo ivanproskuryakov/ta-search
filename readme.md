@@ -16,6 +16,7 @@ pip install --force-reinstall -r requirements.txt
 
 ```
 python download.py AUTO 1h 1660485600 1660572000
+python download.py AUTO 5m 1660485600 1660572000
 ```
 
 

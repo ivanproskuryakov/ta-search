@@ -3,14 +3,14 @@ import numpy as np
 import talib.abstract as ta
 
 from scipy import signal
-from src.service.util import Utility
 
 
 class Search:
-    utility: Utility
+    def diff_percentage(self, v2, v1) -> float:
+        diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
+        diff = np.round(diff, 4)
 
-    def __init__(self):
-        self.utility = Utility()
+        return diff
 
     def find_peaks(self, df: pd.DataFrame, n: int = 20) -> pd.DataFrame:
         """
@@ -44,9 +44,10 @@ class Search:
         for id in ex_min_index:
             max = df.query(f'index > {id} and ex_max > 0')
             first = max[0:1]
+
             if first.size > 0:
                 per = float(
-                    self.utility.diff_percentage(
+                    self.diff_percentage(
                         v1=ex_min.loc[id]['close'],
                         v2=first['close']
                     )
@@ -59,13 +60,15 @@ class Search:
         for id in ex_min_index:
             max = df.query(f'index < {id} and ex_max > 0')
             last = max[-1:]
-            per = float(
-                self.utility.diff_percentage(
-                    v1=ex_min.loc[id]['close'],
-                    v2=last['close']
+
+            if last.size > 0:
+                per = float(
+                    self.diff_percentage(
+                        v1=ex_min.loc[id]['close'],
+                        v2=last['close']
+                    )
                 )
-            )
-            df['ex_min_percentage'].loc[id] = -per
+                df['ex_min_percentage'].loc[id] = -per
 
         df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
         df['sell'] = df.apply(lambda row: self.populate_sell(row, ex_min_index[-1]), axis=1)
