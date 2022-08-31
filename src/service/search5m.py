@@ -74,8 +74,8 @@ class Search5m:
                 )
                 df['ex_min_percentage'].loc[id] = -per
 
-        df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
+        df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
+        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
 
         # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
@@ -83,18 +83,15 @@ class Search5m:
 
         return df
 
-    def populate_buy(self, row: pd.DataFrame):
-        if row['ex_min_percentage'] \
-                and float(row['ex_min_percentage']) < -self.p \
-                and row['macd'] < row['macdhist'] \
-                and row['macd'] < row['macdsignal']:
+    def __populate_buy(self, row: pd.DataFrame):
+        if row['ex_min_percentage'] and float(row['ex_min_percentage']) < -self.p:
             return 'buy'
         else:
             return ''
 
-    def populate_sell(self, row: pd.DataFrame):
+    def __populate_sell(self, row: pd.DataFrame):
         if row['macd'] > row['macdsignal'] > row['macdhist']:
-            return f'sell'
+            return 'sell'
         else:
             return ''
 

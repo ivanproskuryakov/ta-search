@@ -4,6 +4,8 @@ import talib.abstract as ta
 
 from scipy import signal
 
+np.warnings.filterwarnings('ignore')
+
 
 class Search:
     def diff_percentage(self, v2, v1) -> float:
@@ -89,25 +91,8 @@ class Search:
         if float(row['ex_max']) > 0 \
                 and (row['macd'] > row['macdsignal'] > row['macdhist']) \
                 and row['id'] > min_index:
-            return f'sell'
+            return 'sell'
         else:
             return ''
 
 # and ((row['macd'] > row['macdsignal'] > row['macdhist']) or row['rsi_7'] > 80)
-
-    #
-    # def populate_buy(self, row: pd.DataFrame):
-    #     if row['ex_min_percentage'] \
-    #             and float(row['ex_min_percentage']) < -self.p \
-    #             and row['macd'] < row['macdhist'] \
-    #             and row['macdsignal'] < row['macdhist']:
-    #         return 'buy'
-    #     else:
-    #         return ''
-
-    # def populate_sell(self, row: pd.DataFrame):
-    #     if row['macd'] > row['macdhist'] \
-    #             and row['macdsignal'] > row['macdhist']:
-    #         return f'sell'
-    #     else:
-    #         return ''
