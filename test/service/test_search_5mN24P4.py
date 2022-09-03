@@ -4,7 +4,7 @@ from src.service.dataset_builder import DatasetBuilder
 from src.service.search5m import Search5m
 
 dataset_builder = DatasetBuilder()
-search5m = Search5m(n=48, p=3)
+search5m = Search5m(n=24, p=4)
 
 pd.set_option('display.max_rows', 100000)
 pd.set_option('display.precision', 10)
