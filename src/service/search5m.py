@@ -84,6 +84,8 @@ class Search5m:
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
+        df['buy'] = df['buy'].eq(df['buy'].shift()).apply(lambda x: '' if x else 'buy')
+
         return df
 
     def __populate_buy(self, row: pd.DataFrame):
