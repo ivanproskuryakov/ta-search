@@ -97,7 +97,11 @@ class Search5m:
             return ''
 
     def __populate_sell(self, row: pd.DataFrame):
-        if row['macd'] > row['macdsignal'] > row['macdhist']:
+        if row['rsi_7'] > 80:
+            # row['macd'] > row['macdsignal'] > row['macdhist'] \
+            #     or row['rsi_7'] > 90:
+            # row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']:
+            # and (row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']):
             return 'sell'
         else:
             return ''

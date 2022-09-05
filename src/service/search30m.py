@@ -5,14 +5,18 @@ import talib.abstract as ta
 from scipy import signal
 
 
-class Search:
-    def diff_percentage(self, v2, v1) -> float:
-        diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
-        diff = np.round(diff, 4)
+class Search30m:
+    n: int
+    p: float
 
-        return diff
+    def __init__(self, n: int, p: float):
+        self.n = n
+        self.p = p
+        pd.set_option('display.max_rows', 100000)
+        pd.set_option('display.precision', 10)
+        pd.set_option('mode.chained_assignment', None)
 
-    def find_peaks(self, df: pd.DataFrame, n: int = 20) -> pd.DataFrame:
+    def find_peaks(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Parameters
         ----------
@@ -34,8 +38,8 @@ class Search:
         df['buy'] = ''
         df['ex_min_percentage'] = ''
         df['ex_max_percentage'] = ''
-        df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=n)[0]]['close']
-        df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=n)[0]]['close']
+        df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=self.n)[0]]['close']
+        df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=self.n)[0]]['close']
         df['sell'] = ''
 
         ex_min = df.query(f'ex_min > 0')
@@ -47,7 +51,7 @@ class Search:
 
             if first.size > 0:
                 per = float(
-                    self.diff_percentage(
+                    self.__diff_percentage(
                         v1=ex_min.loc[id]['close'],
                         v2=first['close']
                     )
@@ -63,7 +67,7 @@ class Search:
 
             if last.size > 0:
                 per = float(
-                    self.diff_percentage(
+                    self.__diff_percentage(
                         v1=ex_min.loc[id]['close'],
                         v2=last['close']
                     )
@@ -71,7 +75,7 @@ class Search:
                 df['ex_min_percentage'].loc[id] = -per
 
         df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.populate_sell(row, ex_min_index[-1]), axis=1)
+        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
 
         # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
@@ -80,34 +84,19 @@ class Search:
         return df
 
     def populate_buy(self, row: pd.DataFrame):
-        if row['ex_min_percentage'] and row['macd'] < row['macdhist']:
+        if row['ex_min_percentage'] and float(row['ex_min_percentage']) < -self.p:
             return 'buy'
         else:
             return ''
 
-    def populate_sell(self, row: pd.DataFrame, min_index: pd.DataFrame):
-        if float(row['ex_max']) > 0 \
-                and (row['macd'] > row['macdsignal'] > row['macdhist']) \
-                and row['id'] > min_index:
+    def populate_sell(self, row: pd.DataFrame):
+        if row['macd'] > row['macdsignal'] > row['macdhist']:
             return f'sell'
         else:
             return ''
 
-# and ((row['macd'] > row['macdsignal'] > row['macdhist']) or row['rsi_7'] > 80)
+    def __diff_percentage(self, v2, v1) -> float:
+        diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
+        diff = np.round(diff, 4)
 
-    #
-    # def populate_buy(self, row: pd.DataFrame):
-    #     if row['ex_min_percentage'] \
-    #             and float(row['ex_min_percentage']) < -self.p \
-    #             and row['macd'] < row['macdhist'] \
-    #             and row['macdsignal'] < row['macdhist']:
-    #         return 'buy'
-    #     else:
-    #         return ''
-
-    # def populate_sell(self, row: pd.DataFrame):
-    #     if row['macd'] > row['macdhist'] \
-    #             and row['macdsignal'] > row['macdhist']:
-    #         return f'sell'
-    #     else:
-    #         return ''
+        return diff

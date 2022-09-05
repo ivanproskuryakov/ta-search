@@ -18,8 +18,15 @@ pip install --force-reinstall -r requirements.txt
 python download.py AUTO 1h 1660485600 1660572000
 python download.py AUTO 5m 1660485600 1660572000
 python download.py BTC 5m 1661818393 1661904013000
+python download.py BTC 1m 1662271200 1662285600
 ```
 
+```
+
+freqtrade trade --config config.usdt.json --strategy TaSearch5mN48P2 --db-url sqlite:///TaSearch5mN48P2.sqlite
+freqtrade trade --config config.usdt.json --strategy TaSearch5mN96P5 --db-url sqlite:///TaSearch5mN96P5.sqlite
+freqtrade trade --config config.usdt.1m.json --strategy TaSearch1mN60P05 --db-url sqlite:///TaSearch1mN60P05.sqlite
+```
 
 ### Testing
 

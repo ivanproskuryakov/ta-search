@@ -12,6 +12,7 @@ assests = {
     "HBAR/USDT",
     "IOTA/USDT",
     "AVAX/USDT",
+    "ICP/USDT",
 
     "COTI/USDT",
     "NEAR/USDT",
@@ -44,5 +45,11 @@ assests = {
     "POND/USDT"
 
     "SHIB/USDT",
-    "LDO/USDT"
+    "LDO/USDT",
+    "EOS/USDT",
+    "FLOW/USDT",
+    "DYDX/USDT",
+    "DASH/USDT",
+    "KDA/USDT",
+    "MANA/USDT",
 }

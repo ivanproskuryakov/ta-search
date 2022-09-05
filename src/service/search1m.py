@@ -5,7 +5,7 @@ import talib.abstract as ta
 from scipy import signal
 
 
-class Search5m:
+class Search1m:
     n: int
     p: float
 
@@ -97,7 +97,12 @@ class Search5m:
             return ''
 
     def __populate_sell(self, row: pd.DataFrame):
-        if row['macd'] > row['macdsignal'] > row['macdhist']:
+        if row['ex_max_percentage'] \
+                and float(row['ex_max_percentage']) > self.p \
+                and row['macd'] > row['macdsignal'] > row['macdhist']:
+            # and float(row['ex_max']) > self.p \
+            # row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']:
+            # and (row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']):
             return 'sell'
         else:
             return ''
