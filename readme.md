@@ -18,7 +18,8 @@ pip install --force-reinstall -r requirements.txt
 python download.py AUTO 1h 1660485600 1660572000
 python download.py AUTO 5m 1660485600 1660572000
 python download.py BTC 5m 1661818393 1661904013000
-python download.py BTC 1m 1662271200 1662285600
+
+python download.py ONE 1m 1662361200 1662411600
 ```
 
 ```

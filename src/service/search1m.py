@@ -22,12 +22,10 @@ class Search1m:
         ----------
         n : int
             Number of points to be checked before and after
-            Default is 20
         """
 
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
-        df['rsi_20'] = ta.RSI(df['close'], timeperiod=24)
 
         macd, macdsignal, macdhist = ta.MACD(df['close'])
 
@@ -37,36 +35,18 @@ class Search1m:
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''
-        df['ex_max_percentage'] = ''
         df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=self.n)[0]]['close']
+        df['ex_max_percentage'] = ''
         df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=self.n)[0]]['close']
         df['sell'] = ''
 
         ex_min = df.query(f'ex_min > 0')
         ex_min_index = ex_min.index.values.tolist()
-
-        for id in ex_min_index:
-            max = df.query(f'index > {id} and ex_max > 0')
-            first = max[0:1]
-
-            if first.size > 0:
-                per = float(
-                    self.__diff_percentage(
-                        v1=ex_min.loc[id]['close'],
-                        v2=first['close']
-                    )
-                )
-
-                df['ex_max_percentage'].loc[id] = per
-
         ex_min_index.reverse()
 
         for id in ex_min_index:
             max = df.query(f'index < {id} and ex_max > 0')
             last = max[-1:]
-
-            # not last maximum, but first after the previous minumum
-            # not from maximum, but from MACD sell
 
             if last.size > 0:
                 per = float(
@@ -84,25 +64,23 @@ class Search1m:
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
-        df['buy'] = df['buy'].eq(df['buy'].shift()).apply(lambda x: '' if x else 'buy')
-
         return df
 
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
-                and float(row['ex_min_percentage']) < -self.p \
-                and row['macd'] < row['macdsignal'] < row['macdhist']:
+                and row['rsi_7'] < 40 \
+                and row['macd'] < 0 \
+                and row['macdsignal'] < 0 :
+                # and row['macdhist'] < 0:
             return 'buy'
         else:
             return ''
 
     def __populate_sell(self, row: pd.DataFrame):
-        if row['ex_max_percentage'] \
-                and float(row['ex_max_percentage']) > self.p \
-                and row['macd'] > row['macdsignal'] > row['macdhist']:
-            # and float(row['ex_max']) > self.p \
-            # row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']:
-            # and (row['macd'] > row['macdhist'] or row['macdsignal'] > row['macdhist']):
+        if row['macd'] > 0 \
+                and row['macdsignal'] > 0 \
+                and row['macdhist'] > 0 \
+                and row['rsi_7'] > 75:
             return 'sell'
         else:
             return ''

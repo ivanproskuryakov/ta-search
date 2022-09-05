@@ -91,7 +91,8 @@ class Search5m:
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
                 and float(row['ex_min_percentage']) < -self.p \
-                and row['macd'] < row['macdsignal'] < row['macdhist']:
+                and row['macd'] < row['macdsignal'] < row['macdhist'] \
+                and row['rsi_7'] < 35:
             return 'buy'
         else:
             return ''

@@ -1,10 +1,10 @@
 import pandas as pd
 
 from src.service.dataset_builder import DatasetBuilder
-from src.service.search5m import Search5m
+from src.service.search1m import Search1m
 
 dataset_builder = DatasetBuilder()
-search = Search5m(n=60, p=0.5)
+search = Search1m(n=60, p=1)
 
 pd.set_option('display.max_rows', 100000)
 pd.set_option('display.precision', 10)
