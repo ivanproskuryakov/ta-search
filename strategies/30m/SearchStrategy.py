@@ -9,7 +9,7 @@ from search5m import Search5m
 class SearchStrategy(IStrategy):
     search5m: Search5m
     minimal_roi = {
-        "0": 0.1
+        "0": 0.015
     }
     stoploss = -0.05
     timeframe = '30m'
