@@ -36,7 +36,6 @@ class Search1m:
         df['buy'] = ''
         df['ex_min_percentage'] = ''
         df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=self.n)[0]]['close']
-        df['ex_max_percentage'] = ''
         df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=self.n)[0]]['close']
         df['sell'] = ''
 
@@ -58,7 +57,6 @@ class Search1m:
                 df['ex_min_percentage'].loc[id] = -per
 
         df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
 
         # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
@@ -70,18 +68,9 @@ class Search1m:
         if row['ex_min_percentage'] \
                 and row['rsi_7'] < 40 \
                 and row['macd'] < 0 \
-                and row['macdsignal'] < 0 :
-                # and row['macdhist'] < 0:
+                and row['macdsignal'] < 0:
+            # and row['macdhist'] < 0:
             return 'buy'
-        else:
-            return ''
-
-    def __populate_sell(self, row: pd.DataFrame):
-        if row['macd'] > 0 \
-                and row['macdsignal'] > 0 \
-                and row['macdhist'] > 0 \
-                and row['rsi_7'] > 75:
-            return 'sell'
         else:
             return ''
 
