@@ -26,6 +26,8 @@ class Search1m:
 
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
+        df['rsi_30'] = ta.RSI(df['close'], timeperiod=30)
+        df['rsi_90'] = ta.RSI(df['close'], timeperiod=90)
 
         macd, macdsignal, macdhist = ta.MACD(df['close'])
 
@@ -67,9 +69,8 @@ class Search1m:
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
                 and row['rsi_7'] < 40 \
-                and row['macd'] < 0 \
-                and row['macdsignal'] < 0:
-            # and row['macdhist'] < 0:
+                and row['rsi_7'] < row['rsi_30'] < row['rsi_90'] \
+                and row['macd'] < row['macdsignal'] < row['macdhist'] < 0:
             return 'buy'
         else:
             return ''

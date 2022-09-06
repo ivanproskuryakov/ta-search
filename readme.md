@@ -20,6 +20,11 @@ python download.py AUTO 5m 1660485600 1660572000
 python download.py BTC 5m 1661818393 1661904013000
 
 python download.py ONE 1m 1662361200 1662411600
+python download.py BTC 1m 1662361200 1662411600
+
+3p 6sept2022
+python download.py ETH 1m 1662476400 1662501600
+python download.py BTC 1m 1662476400 1662501600
 ```
 
 ```
