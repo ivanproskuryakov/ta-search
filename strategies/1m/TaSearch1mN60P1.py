@@ -8,4 +8,3 @@ class TaSearch1mN60P1(SearchStrategy):
         "0": 0.01
     }
     stoploss = -0.03
-    use_exit_signal = False

@@ -45,5 +45,6 @@ python -m pytest test
 python -m pytest --log-cli-level DEBUG -s test/service/test_dataset_builder.py
 python -m pytest -s test/service/test_search_1h.py
 python -m pytest -s test/service/test_search_5m.py
+python -m pytest -s test/service/test_search_1m.py
 
 ```

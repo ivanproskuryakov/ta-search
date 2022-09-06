@@ -27,4 +27,5 @@ class SearchStrategy(IStrategy):
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+        df.loc[(df['sell'] == 'sell'), 'sell'] = 1
         return df
