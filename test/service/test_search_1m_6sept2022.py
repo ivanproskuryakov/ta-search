@@ -15,7 +15,6 @@ def test_btc():
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
-    # df = df[0:100]
     df = search.find_peaks(df)
 
     print(df)
