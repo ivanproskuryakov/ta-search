@@ -7,4 +7,4 @@ class TaSearch1mN60P1(SearchStrategy):
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.03
+    stoploss = -0.05
