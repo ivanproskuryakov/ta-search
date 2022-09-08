@@ -52,4 +52,7 @@ assests = {
     "DASH/USDT",
     "KDA/USDT",
     "MANA/USDT",
+
+    "DOGE/USDT",
+    "FTT/USDT",
 }
