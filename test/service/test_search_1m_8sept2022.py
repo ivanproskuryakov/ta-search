@@ -38,3 +38,12 @@ def test_kda():
     df = search.find_peaks(df)
 
     print(df)
+
+def test_btc():
+    path = 'fixture/BTC_USDT_1m_1662602400.0_1662660000.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[["date", "close"]]
+    df = search.find_peaks(df)
+
+    print(df)

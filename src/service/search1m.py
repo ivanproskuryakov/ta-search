@@ -92,6 +92,7 @@ class Search1m:
 
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
+                and row['ex_min_percentage'] < -self.p \
                 and row['rsi_7'] < 30 \
                 and row['rsi_7'] < row['rsi_30'] < row['rsi_90'] \
                 and row['macd'] < row['macdsignal'] < row['macdhist'] < 0:
@@ -101,7 +102,7 @@ class Search1m:
 
     def __populate_sell(self, row: pd.DataFrame):
         if row['ex_max_percentage'] \
-                and row['rsi_7'] > 70 \
+                and row['rsi_7'] > 75 \
                 and row['macd'] > 0 \
                 and row['macdsignal'] > 0 \
                 and row['macdhist'] > 0:
