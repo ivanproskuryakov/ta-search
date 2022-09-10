@@ -1,6 +1,39 @@
 market = 'USDT'
 
-assests = {
+assests_curated = {
+    "BTC/USDT",
+    "BNB/USDT",
+    "ETH/USDT",
+    "ADA/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ATOM/USDT",
+    "AVAX/USDT",
+
+    "NEAR/USDT",
+    "EGLD/USDT",
+    "ALGO/USDT",
+    "KSM/USDT",
+    "MATIC/USDT",
+    "ONE/USDT",
+
+    "ROSE/USDT",
+    "TRX/USDT",
+    "ETC/USDT",
+    "LINK/USDT",
+    "UNI/USDT",
+
+    "SHIB/USDT",
+    "LDO/USDT",
+    "EOS/USDT",
+    "FLOW/USDT",
+    "IOTA/USDT",
+    "DASH/USDT",
+    "KDA/USDT",
+    "MANA/USDT"
+}
+
+assests_full = {
     "BTC/USDT",
     "BNB/USDT",
     "ETH/USDT",
