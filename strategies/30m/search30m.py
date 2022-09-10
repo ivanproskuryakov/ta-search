@@ -5,7 +5,7 @@ import talib.abstract as ta
 from scipy import signal
 
 
-class Search5m:
+class Search30m:
     n: int
     p: float
 

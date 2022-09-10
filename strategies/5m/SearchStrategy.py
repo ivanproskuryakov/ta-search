@@ -7,7 +7,7 @@ from search5m import Search5m
 
 
 class SearchStrategy(IStrategy):
-    search5m: Search5m
+    search: Search5m
     minimal_roi = {
         "0": 0.1
     }
@@ -17,11 +17,11 @@ class SearchStrategy(IStrategy):
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
-        self.search5m = Search5m(n=self.n, p=self.p)
+        self.search = Search5m(n=self.n, p=self.p)
 
     def populate_indicators(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.columns = ['date', 'open', 'high', 'low', 'close', 'volume']
-        df = self.search5m.find_peaks(df)
+        df = self.search.find_peaks(df)
 
         return df
 
