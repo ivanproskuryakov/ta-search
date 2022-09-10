@@ -11,10 +11,7 @@ class SearchStrategy(IStrategy):
     minimal_roi = {
         "0": 0.1
     }
-    stoploss = -0.25
-    timeframe = '5m'
-    # use_exit_signal = True
-
+    stoploss = -0.05
     n: int
     p: float
 

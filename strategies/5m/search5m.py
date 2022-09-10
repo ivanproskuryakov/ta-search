@@ -65,6 +65,9 @@ class Search5m:
             max = df.query(f'index < {id} and ex_max > 0')
             last = max[-1:]
 
+            # not last maximum, but first after the previous minumum
+            # not from maximum, but from MACD sell
+
             if last.size > 0:
                 per = float(
                     self.__diff_percentage(
@@ -74,27 +77,28 @@ class Search5m:
                 )
                 df['ex_min_percentage'].loc[id] = -per
 
-        df['buy'] = df.apply(lambda row: self.populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
+        df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
+        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
 
         # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
+        df['buy'] = df['buy'].eq(df['buy'].shift()).apply(lambda x: '' if x else 'buy')
+
         return df
 
-    def populate_buy(self, row: pd.DataFrame):
+    def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
                 and float(row['ex_min_percentage']) < -self.p \
-                and row['macd'] < row['macdhist'] \
-                and row['macd'] < row['macdsignal']:
+                and row['macd'] < row['macdsignal'] < row['macdhist']:
             return 'buy'
         else:
             return ''
 
-    def populate_sell(self, row: pd.DataFrame):
+    def __populate_sell(self, row: pd.DataFrame):
         if row['macd'] > row['macdsignal'] > row['macdhist']:
-            return f'sell'
+            return 'sell'
         else:
             return ''
 
