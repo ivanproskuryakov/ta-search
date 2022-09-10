@@ -35,6 +35,9 @@ python download.py BTC 1m 1662476400 1662501600
 python download.py NEAR 1m 1662602400 1662660000
 python download.py KDA 1m 1662602400 1662660000
 python download.py EOS 1m 1662602400 1662660000
+
+10sept2022
+python download.py LDO 1m 1662674400 1662847200
 ```
 
 ```
