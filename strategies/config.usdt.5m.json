@@ -11,7 +11,7 @@
     "trading_mode": "spot",
     "margin_mode": "",
 
-    "timeframe": "30m",
+    "timeframe": "5m",
     "unfilledtimeout": {
         "entry": 10,
         "exit": 10,
@@ -51,11 +51,13 @@
             "HBAR/USDT",
             "IOTA/USDT",
             "AVAX/USDT",
+            "ICP/USDT",
 
             "COTI/USDT",
             "NEAR/USDT",
             "BAT/USDT",
             "WAVES/USDT",
+            "CHZ/USDT",
             "MINA/USDT",
             "EGLD/USDT",
             "XTZ/USDT",
@@ -80,6 +82,18 @@
             "UNI/USDT",
             "GTC/USDT",
             "POND/USDT",
+
+            "SHIB/USDT",
+            "LDO/USDT",
+            "EOS/USDT",
+            "FLOW/USDT",
+            "DYDX/USDT",
+            "DASH/USDT",
+            "KDA/USDT",
+            "MANA/USDT",
+
+            "DOGE/USDT",
+            "FTT/USDT"
         ],
         "pair_blacklist": [
         ]
@@ -119,7 +133,7 @@
         "username": "admin",
         "password": "12qw12"
     },
-    "bot_name": "freqtrade_curated",
+    "bot_name": "freqtrade 5m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {

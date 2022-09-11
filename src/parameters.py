@@ -75,7 +75,7 @@ assests_full = {
     "FIL/USDT",
     "UNI/USDT",
     "GTC/USDT",
-    "POND/USDT"
+    "POND/USDT",
 
     "SHIB/USDT",
     "LDO/USDT",
