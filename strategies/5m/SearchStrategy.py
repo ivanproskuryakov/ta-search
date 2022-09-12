@@ -1,17 +1,16 @@
 import sys
 import pandas as pd
-import freqtrade.vendor.qtpylib.indicators as qtpylib
+from datetime import datetime
 
+import freqtrade.vendor.qtpylib.indicators as qtpylib
+from freqtrade.persistence import Order, PairLocks, Trade
 from freqtrade.strategy.interface import IStrategy
+
 from search5m import Search5m
 
 
 class SearchStrategy(IStrategy):
     search: Search5m
-    minimal_roi = {
-        "0": 0.1
-    }
-    stoploss = -0.05
     n: int
     p: float
 
@@ -34,3 +33,18 @@ class SearchStrategy(IStrategy):
         df.loc[(df['sell'] == 'sell'), 'sell'] = 1
 
         return df
+
+    def confirm_trade_exit(self, pair: str, trade: Trade, order_type: str, amount: float,
+                           rate: float, time_in_force: str, exit_reason: str,
+                           current_time: datetime, **kwargs) -> bool:
+        """
+        https://www.freqtrade.io/en/stable/strategy-advanced/
+        Reject force-sells with negative profit
+        This is just a sample, please adjust to your needs
+        (this does not necessarily make sense, assuming you know when you're force-selling)
+        """
+
+        if exit_reason == 'exit_signal' and trade.calc_profit_ratio(rate) > 0:
+            return True
+
+        return False

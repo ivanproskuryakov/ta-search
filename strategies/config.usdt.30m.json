@@ -133,7 +133,7 @@
         "username": "admin",
         "password": "12qw12"
     },
-    "bot_name": "freqtrade_curated",
+    "bot_name": "freqtrade 30m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {

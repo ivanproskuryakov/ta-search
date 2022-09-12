@@ -88,4 +88,6 @@ assests_full = {
 
     "DOGE/USDT",
     "FTT/USDT",
+    "MKR/USDT",
+    "CAKE/USDT",
 }

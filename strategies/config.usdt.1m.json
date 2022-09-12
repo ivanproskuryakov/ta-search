@@ -45,30 +45,56 @@
             "ADA/USDT",
             "SOL/USDT",
             "XRP/USDT",
+            "DOT/USDT",
             "ATOM/USDT",
+            "HBAR/USDT",
+            "IOTA/USDT",
             "AVAX/USDT",
+            "ICP/USDT",
 
+            "COTI/USDT",
             "NEAR/USDT",
+            "BAT/USDT",
+            "WAVES/USDT",
+            "CHZ/USDT",
+            "MINA/USDT",
             "EGLD/USDT",
+            "XTZ/USDT",
             "ALGO/USDT",
             "KSM/USDT",
             "MATIC/USDT",
             "ONE/USDT",
 
+            "1INCH/USDT",
+            "KAVA/USDT",
+            "OCEAN/USDT",
+            "GRT/USDT",
             "ROSE/USDT",
+            "CTSI/USDT",
+
+            "ZRX/USDT",
             "TRX/USDT",
             "ETC/USDT",
+            "BCH/USDT",
             "LINK/USDT",
+            "FIL/USDT",
             "UNI/USDT",
+            "GTC/USDT",
+            "POND/USDT",
 
             "SHIB/USDT",
             "LDO/USDT",
             "EOS/USDT",
             "FLOW/USDT",
-            "IOTA/USDT",
+            "DYDX/USDT",
             "DASH/USDT",
             "KDA/USDT",
-            "MANA/USDT"
+            "MANA/USDT",
+
+            "DOGE/USDT",
+            "FTT/USDT",
+            "MKR/USDT",
+            "CAKE/USDT"
         ],
         "pair_blacklist": [
         ]
@@ -108,7 +134,7 @@
         "username": "admin",
         "password": "12qw12"
     },
-    "bot_name": "freqtrade_curated_1m",
+    "bot_name": "freqtrade 1m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {
