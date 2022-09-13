@@ -22,7 +22,7 @@ Check the last two lows
 ```
 python download.py AUTO 1h 1660485600 1660572000
 
-python download.py OCEAN 30m 1662336000 1663113600
+python download.py LDO 1m 1663027200 1663113600
 ```
 
 ```

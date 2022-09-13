@@ -11,7 +11,7 @@ pd.set_option('display.precision', 10)
 
 
 def test_ldo():
-    path = 'fixture/LDO_USDT_1m_1662674400.0_1662847200.0.json'
+    path = 'fixture/1m/LDO_USDT_1m_1662674400.0_1662847200.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -21,7 +21,7 @@ def test_ldo():
     print(df)
 
 def test_rose():
-    path = 'fixture/ROSE_USDT_1m_1662674400.0_1662847200.0.json'
+    path = 'fixture/1m/ROSE_USDT_1m_1662674400.0_1662847200.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]

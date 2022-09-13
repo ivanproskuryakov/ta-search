@@ -11,7 +11,7 @@ pd.set_option('display.precision', 10)
 
 
 def test_link():
-    path = 'fixture/LINK_USDT_1m_1662660000.0_1662692400000.0.json'
+    path = 'fixture/1m/LINK_USDT_1m_1662660000.0_1662692400000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -21,7 +21,7 @@ def test_link():
 
 
 def test_one():
-    path = 'fixture/ONE_USDT_1m_1662660000.0_1662692400000.0.json'
+    path = 'fixture/1m/ONE_USDT_1m_1662660000.0_1662692400000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]

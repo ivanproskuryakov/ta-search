@@ -10,11 +10,12 @@ pd.set_option('display.max_rows', 100000)
 pd.set_option('display.precision', 10)
 
 
-def test_find_peaks_one_1m():
-    path = 'fixture/1m/ONE_USDT_1m_1662361200.0_1662411600.0.json'
+def test_ldo():
+    path = 'fixture/1m/LDO_USDT_1m_1663027200.0_1663113600.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
+    # df = df[0: 251]
     df = search.find_peaks(df)
 
     print(df)

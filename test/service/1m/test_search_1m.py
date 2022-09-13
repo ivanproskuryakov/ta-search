@@ -11,7 +11,7 @@ pd.set_option('display.precision', 10)
 
 
 def test_find_peaks_btc_1m_crop():
-    path = 'fixture/BTC_USDT_1m_1662271200.0_1662285600.0.json'
+    path = 'fixture/1m/BTC_USDT_1m_1662271200.0_1662285600.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -20,7 +20,7 @@ def test_find_peaks_btc_1m_crop():
     print(df)
 
 def test_find_peaks_eth_1m_crop():
-    path = 'fixture/ETH_USDT_1m_1662271200.0_1662285600.0.json'
+    path = 'fixture/1m/ETH_USDT_1m_1662271200.0_1662285600.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -30,7 +30,7 @@ def test_find_peaks_eth_1m_crop():
 
 
 def test_find_peaks_ada_1m_crop():
-    path = 'fixture/ADA_USDT_1m_1662271200.0_1662285600.0.json'
+    path = 'fixture/1m/ADA_USDT_1m_1662271200.0_1662285600.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]

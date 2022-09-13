@@ -11,7 +11,7 @@ pd.set_option('display.precision', 10)
 
 
 def test_eos():
-    path = 'fixture/EOS_USDT_1m_1662602400.0_1662660000.0.json'
+    path = 'fixture/1m/EOS_USDT_1m_1662602400.0_1662660000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -21,7 +21,7 @@ def test_eos():
 
 
 def test_near():
-    path = 'fixture/NEAR_USDT_1m_1662602400.0_1662660000.0.json'
+    path = 'fixture/1m/NEAR_USDT_1m_1662602400.0_1662660000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -31,7 +31,7 @@ def test_near():
 
 
 def test_kda():
-    path = 'fixture/KDA_USDT_1m_1662602400.0_1662660000.0.json'
+    path = 'fixture/1m/KDA_USDT_1m_1662602400.0_1662660000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
@@ -40,7 +40,7 @@ def test_kda():
     print(df)
 
 def test_btc():
-    path = 'fixture/BTC_USDT_1m_1662602400.0_1662660000.0.json'
+    path = 'fixture/1m/BTC_USDT_1m_1662602400.0_1662660000.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[["date", "close"]]
