@@ -34,7 +34,6 @@ class SearchStrategy(IStrategy):
 
         return df
 
-
     def confirm_trade_exit(self, pair: str, trade: Trade, order_type: str, amount: float,
                            rate: float, time_in_force: str, exit_reason: str,
                            current_time: datetime, **kwargs) -> bool:
