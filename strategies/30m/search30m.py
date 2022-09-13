@@ -84,7 +84,9 @@ class Search30m:
         return df
 
     def populate_buy(self, row: pd.DataFrame):
-        if row['ex_min_percentage'] and float(row['ex_min_percentage']) < -self.p:
+        if row['ex_min_percentage'] \
+                and float(row['ex_min_percentage']) < -self.p \
+                and 18 < row['rsi_7'] < 30:
             return 'buy'
         else:
             return ''
