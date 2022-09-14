@@ -94,7 +94,7 @@ class Search1m:
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
                 and 10 < row['rsi_7'] < 25 \
-                and row['rsi_30'] < 32 \
+                and row['rsi_30'] < 35 \
                 and row['rsi_90'] < 45 \
                 and row['macd'] < 0 \
                 and row['macdsignal'] < 0 \
