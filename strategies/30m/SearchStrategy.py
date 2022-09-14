@@ -31,6 +31,7 @@ class SearchStrategy(IStrategy):
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[(df['sell'] == 'sell'), 'sell'] = 1
+        df.loc[(df['sell'] == 'sell'), 'exit_tag'] = 'sell_signal_search'
 
         return df
 
@@ -44,7 +45,9 @@ class SearchStrategy(IStrategy):
         (this does not necessarily make sense, assuming you know when you're force-selling)
         """
 
-        if exit_reason == 'exit_signal' and trade.calc_profit_ratio(rate) > 0:
-            return True
+        if exit_reason == 'exit_signal' \
+                and trade.exit_tag == 'sell_signal_search' \
+                and trade.calc_profit_ratio(rate) > 0:
+            return False
 
-        return False
+        return True
