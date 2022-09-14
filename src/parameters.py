@@ -90,4 +90,5 @@ assests_full = {
     "FTT/USDT",
     "MKR/USDT",
     "CAKE/USDT",
+    "AERGO/USDT",
 }

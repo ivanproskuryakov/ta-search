@@ -39,3 +39,23 @@ def test_ada():
     df = search.find_peaks(df)
 
     print(df)
+
+def test_ldo():
+    path = 'fixture/1m/LDO_USDT_1m_1663113600.0_1663192800.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[["date", "close"]]
+    # df = df[0: 251]
+    df = search.find_peaks(df)
+
+    print(df)
+
+def test_xrp():
+    path = 'fixture/1m/XRP_USDT_1m_1663113600.0_1663192800.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[["date", "close"]]
+    # df = df[0: 251]
+    df = search.find_peaks(df)
+
+    print(df)
