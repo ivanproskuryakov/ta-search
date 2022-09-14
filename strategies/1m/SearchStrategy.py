@@ -45,9 +45,7 @@ class SearchStrategy(IStrategy):
         (this does not necessarily make sense, assuming you know when you're force-selling)
         """
 
-        if exit_reason == 'exit_signal' \
-                and trade.exit_tag == 'sell_signal_search' \
-                and trade.calc_profit_ratio(rate) > 0:
-            return False
+        if exit_reason == 'exit_signal' and trade.calc_profit_ratio(rate) > 0:
+            return True
 
-        return True
+        return False
