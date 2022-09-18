@@ -1,8 +1,9 @@
 import pandas as pd
-from datetime import datetime
 
+from datetime import datetime
 from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
+
 from user_data.strategies.taSearch import TaSearch
 
 

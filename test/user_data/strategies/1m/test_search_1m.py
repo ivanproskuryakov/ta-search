@@ -12,24 +12,23 @@ def test_btc():
     df = df[['date', 'open', 'high', 'low', 'close', 'volume']]
     df = strategy.populate_indicators(df, {})
 
-    print(df)
-    print(df.iloc[198])
+    min = df.query('ex_min_percentage != ""')
+    max = df.query('ex_max_percentage != ""')
 
-# def test_eth():
-#     path = 'fixture/1m/ETH_USDT_1m_1662271200.0_1662285600.0.json'
-#
-#     df = dataset_builder.from_file(path)
-#     df = df[["date", "close"]]
-#     df = search.find_extremes(df)
-#
-#     print(df)
-#
-#
-# def test_ada():
-#     path = 'fixture/1m/ADA_USDT_1m_1662271200.0_1662285600.0.json'
-#
-#     df = dataset_builder.from_file(path)
-#     df = df[["date", "close"]]
-#     df = search.find_extremes(df)
-#
-#     print(df)
+    assert len(min) == 1
+    assert len(max) == 2
+
+
+def test_eth():
+    path = 'fixture/1m/ETH_USDT_1m_1662271200.0_1662285600.0.json'
+
+    df = dataset_builder.from_file(path)
+    df = df[['date', 'open', 'high', 'low', 'close', 'volume']]
+    df = strategy.populate_indicators(df, {})
+
+    min = df.query('ex_min_percentage != ""')
+    max = df.query('ex_max_percentage != ""')
+
+    assert len(min) == 2
+    assert len(max) == 3
+

@@ -1,18 +1,17 @@
-import sys
 import pandas as pd
-from datetime import datetime
 
-import freqtrade.vendor.qtpylib.indicators as qtpylib
-from freqtrade.persistence import Order, PairLocks, Trade
+from datetime import datetime
+from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
 
-from TaSearch import TaSearch
+from user_data.strategies.taSearch import TaSearch
 
 
-class Search5mStrategy(IStrategy):
+class TaSearch5m(IStrategy):
     search: TaSearch
     n: int
     p: float
+    
     n = 12
     p = 3
     minimal_roi = {
@@ -58,7 +57,6 @@ class Search5mStrategy(IStrategy):
             return True
 
         return False
-
 
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \

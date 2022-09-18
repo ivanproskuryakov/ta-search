@@ -1,18 +1,17 @@
-import sys
 import pandas as pd
-from datetime import datetime
 
-import freqtrade.vendor.qtpylib.indicators as qtpylib
-from freqtrade.persistence import Order, PairLocks, Trade
+from datetime import datetime
+from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
 
-from TaSearch import TaSearch
+from user_data.strategies.taSearch import TaSearch
 
 
-class SearchStrategy(IStrategy):
+class TaSearch30m(IStrategy):
     search: TaSearch
     n: int
     p: float
+
     n = 24
     p = 4
     minimal_roi = {
