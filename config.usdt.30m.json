@@ -11,7 +11,7 @@
     "trading_mode": "spot",
     "margin_mode": "",
 
-    "timeframe": "1m",
+    "timeframe": "30m",
     "unfilledtimeout": {
         "entry": 10,
         "exit": 10,
@@ -51,11 +51,13 @@
             "HBAR/USDT",
             "IOTA/USDT",
             "AVAX/USDT",
+            "ICP/USDT",
 
             "COTI/USDT",
             "NEAR/USDT",
             "BAT/USDT",
             "WAVES/USDT",
+            "CHZ/USDT",
             "MINA/USDT",
             "EGLD/USDT",
             "XTZ/USDT",
@@ -79,7 +81,19 @@
             "FIL/USDT",
             "UNI/USDT",
             "GTC/USDT",
-            "POND/USDT"
+            "POND/USDT",
+
+            "SHIB/USDT",
+            "LDO/USDT",
+            "EOS/USDT",
+            "FLOW/USDT",
+            "DYDX/USDT",
+            "DASH/USDT",
+            "KDA/USDT",
+            "MANA/USDT",
+
+            "DOGE/USDT",
+            "FTT/USDT"
         ],
         "pair_blacklist": [
         ]
@@ -109,17 +123,17 @@
         "chat_id": ""
     },
     "api_server": {
-        "enabled": false,
-        "listen_ip_address": "127.0.0.1",
+        "enabled": true,
+        "listen_ip_address": "0.0.0.0",
         "listen_port": 8080,
         "verbosity": "error",
         "enable_openapi": false,
         "jwt_secret_key": "73a5d418ef03ca2e646fa0ae15a391e7fe0e53f29ffb4cfaace9d7aa4d34d6a5",
         "CORS_origins": [],
-        "username": "",
-        "password": ""
+        "username": "admin",
+        "password": "12qw12"
     },
-    "bot_name": "freqtrade",
+    "bot_name": "freqtrade 30m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {

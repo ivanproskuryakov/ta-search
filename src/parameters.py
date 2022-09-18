@@ -1,5 +1,27 @@
 market = 'USDT'
 
+assests_btc = {
+    "BNB/BTC",
+    "ETH/BTC",
+    "ADA/BTC",
+    "SOL/BTC",
+    "XRP/BTC",
+    "ATOM/BTC",
+    "NEAR/BTC",
+    "EGLD/BTC",
+
+    "ALGO/BTC",
+    "MATIC/BTC",
+    "ONE/BTC",
+    "ROSE/BTC",
+    "TRX/BTC",
+    "LINK/BTC",
+    "SHIB/USDT",
+    "FLOW/BTC",
+    "DOT/BTC",
+    "IOTA/BTC",
+}
+
 assests_curated = {
     "BTC/USDT",
     "BNB/USDT",

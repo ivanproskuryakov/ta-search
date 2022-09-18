@@ -40,20 +40,67 @@
         "ccxt_config": {},
         "ccxt_async_config": {},
         "pair_whitelist": [
+            "BTC/USDT",
+            "BNB/USDT",
+            "ETH/USDT",
+            "ADA/USDT",
+            "SOL/USDT",
+            "XRP/USDT",
+            "DOT/USDT",
+            "ATOM/USDT",
+            "HBAR/USDT",
+            "IOTA/USDT",
+            "AVAX/USDT",
+            "ICP/USDT",
+
+            "COTI/USDT",
+            "NEAR/USDT",
+            "BAT/USDT",
+            "WAVES/USDT",
+            "CHZ/USDT",
+            "MINA/USDT",
+            "EGLD/USDT",
+            "XTZ/USDT",
+            "ALGO/USDT",
+            "KSM/USDT",
+            "MATIC/USDT",
+            "ONE/USDT",
+
+            "1INCH/USDT",
+            "KAVA/USDT",
+            "OCEAN/USDT",
+            "GRT/USDT",
+            "ROSE/USDT",
+            "CTSI/USDT",
+
+            "ZRX/USDT",
+            "TRX/USDT",
+            "ETC/USDT",
+            "BCH/USDT",
+            "LINK/USDT",
+            "FIL/USDT",
+            "UNI/USDT",
+            "GTC/USDT",
+            "POND/USDT",
+
+            "SHIB/USDT",
+            "LDO/USDT",
+            "EOS/USDT",
+            "FLOW/USDT",
+            "DYDX/USDT",
+            "DASH/USDT",
+            "KDA/USDT",
+            "MANA/USDT",
+
+            "DOGE/USDT",
+            "FTT/USDT"
         ],
         "pair_blacklist": [
-            "USDC/USDT",
-            "BUSD/USDT"
         ]
     },
     "pairlists": [
         {
-            "method": "VolumePairList",
-            "number_assets": 100,
-            "sort_key": "quoteVolume",
-            "min_value": 0,
-            "refresh_period": 86400,
-            "lookback_days": 7
+          "method": "StaticPairList"
         }
     ],
     "edge": {
@@ -86,7 +133,7 @@
         "username": "admin",
         "password": "12qw12"
     },
-    "bot_name": "freqtrade",
+    "bot_name": "freqtrade 5m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {

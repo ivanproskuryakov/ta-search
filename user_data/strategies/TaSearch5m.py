@@ -6,21 +6,31 @@ import freqtrade.vendor.qtpylib.indicators as qtpylib
 from freqtrade.persistence import Order, PairLocks, Trade
 from freqtrade.strategy.interface import IStrategy
 
-from search5m import Search5m
+from TaSearch import TaSearch
 
 
-class SearchStrategy(IStrategy):
-    search: Search5m
+class Search5mStrategy(IStrategy):
+    search: TaSearch
     n: int
     p: float
+    n = 12
+    p = 3
+    minimal_roi = {
+        "0": 0.1
+    }
+    stoploss = -0.15
+    timeframe = '5m'
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
-        self.search = Search5m(n=self.n, p=self.p)
+        self.search = TaSearch(n=self.n, p=self.p)
 
     def populate_indicators(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.columns = ['date', 'open', 'high', 'low', 'close', 'volume']
-        df = self.search.find_peaks(df)
+        df = self.search.find_extremes(df)
+
+        df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
+        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
 
         return df
 
@@ -48,3 +58,18 @@ class SearchStrategy(IStrategy):
             return True
 
         return False
+
+
+    def __populate_buy(self, row: pd.DataFrame):
+        if row['ex_min_percentage'] \
+                and float(row['ex_min_percentage']) < -self.p \
+                and row['macd'] < row['macdsignal'] < row['macdhist']:
+            return 'buy'
+        else:
+            return ''
+
+    def __populate_sell(self, row: pd.DataFrame):
+        if row['macd'] > row['macdsignal'] > row['macdhist']:
+            return 'sell'
+        else:
+            return ''

@@ -5,7 +5,7 @@ import talib.abstract as ta
 from scipy import signal
 
 
-class Search1m:
+class TaSearch:
     n: int
     p: float
 
@@ -16,7 +16,7 @@ class Search1m:
         pd.set_option('display.precision', 10)
         pd.set_option('mode.chained_assignment', None)
 
-    def find_peaks(self, df: pd.DataFrame) -> pd.DataFrame:
+    def find_extremes(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Parameters
         ----------
@@ -81,36 +81,11 @@ class Search1m:
                 )
                 df['ex_max_percentage'].loc[id] = per
 
-        df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
-
         # clean NaN
         df['ex_min'] = df['ex_min'].apply(lambda x: x if float(x) > 0 else '')
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
         return df
-
-    def __populate_buy(self, row: pd.DataFrame):
-        if row['ex_min_percentage'] \
-                and row['ex_min_percentage'] < -self.p \
-                and 10 < row['rsi_7'] < 20 \
-                and row['rsi_30'] < 35 \
-                and row['rsi_90'] < 45 \
-                and row['macd'] < 0 \
-                and row['macdsignal'] < 0 \
-                and row['macdhist'] < 0:
-            return 'buy'
-        else:
-            return ''
-
-    def __populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 70 \
-                and row['macd'] > 0 \
-                and row['macdsignal'] > 0 \
-                and row['macdhist'] > 0:
-            return 'sell'
-        else:
-            return ''
 
     def __diff_percentage(self, v2, v1) -> float:
         diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
