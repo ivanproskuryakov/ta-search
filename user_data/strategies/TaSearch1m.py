@@ -4,7 +4,7 @@ from datetime import datetime
 from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
 
-from user_data.strategies.taSearch import TaSearch
+from taSearch import TaSearch
 
 
 class TaSearch1m(IStrategy):
@@ -12,12 +12,12 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 60
-    p = 1
+    n = 180
+    p = 2
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.1
+    stoploss = -0.02
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
@@ -69,13 +69,13 @@ class TaSearch1m(IStrategy):
 
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
-                and 10 < row['rsi_7'] < 30:
+                and row['rsi_7'] < 15:
             return 'buy'
         else:
             return ''
 
     def __populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 80 \
+        if row['rsi_7'] > 85 \
                 and row['macd'] > 0 \
                 and row['macdsignal'] > 0 \
                 and row['macdhist'] > 0:

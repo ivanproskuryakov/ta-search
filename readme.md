@@ -4,9 +4,13 @@ FreqTrade trade entry indicator detection library and strategies. For running a 
 user_data/strategies to your freqtrade bot directory and run as usual.
 
 ```
-freqtrade trade --config config.usdt.1m.json --strategy Search1mStrategy --db-url sqlite:///search1mStrategy.sqlite
-freqtrade trade --config config.usdt.5m.json --strategy Search5mStrategy --db-url sqlite:///search5mStrategy.sqlite
-freqtrade trade --config config.usdt.30m.json --strategy Search30mStrategy --db-url sqlite:///search30mStrategy.sqlite
+freqtrade trade --config config.usdt.1m.json --strategy TaSearch1m --db-url sqlite:///TaSearch1mN60P1.sqlite
+freqtrade trade --config config.usdt.1m.json --strategy TaSearch1m --db-url sqlite:///search1mStrategy.sqlite
+
+freqtrade trade --config config.usdt.30m.json --strategy TaSearch30m --db-url sqlite:///search30mStrategy.sqlite
+freqtrade trade --config config.usdt.30m.json --strategy TaSearch30m --db-url sqlite:///TaSearch5mN24P5.sqlite
+
+freqtrade trade --config config.usdt.5m.json --strategy TaSearch5m --db-url sqlite:///search5mStrategy.sqlite   
 ```
 
 ### Installation
