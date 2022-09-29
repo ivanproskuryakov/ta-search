@@ -12,12 +12,12 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 180
-    p = 2
+    n = 240
+    p = 3
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.02
+    stoploss = -0.01
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)

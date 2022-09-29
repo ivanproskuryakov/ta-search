@@ -12,12 +12,12 @@ class TaSearch30m(IStrategy):
     n: int
     p: float
 
-    n = 24
+    n = 36
     p = 5
     minimal_roi = {
         "0": 0.03
     }
-    stoploss = -0.03
+    stoploss = -0.02
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
