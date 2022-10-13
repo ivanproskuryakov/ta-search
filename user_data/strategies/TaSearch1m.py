@@ -12,12 +12,12 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 240
-    p = 3
+    n = 180
+    p = 2
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.01
+    stoploss = -0.005
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
@@ -69,7 +69,7 @@ class TaSearch1m(IStrategy):
 
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
-                and row['rsi_7'] < 15:
+                and row['rsi_7'] > 30:
             return 'buy'
         else:
             return ''

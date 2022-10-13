@@ -12,12 +12,12 @@ class TaSearch30m(IStrategy):
     n: int
     p: float
 
-    n = 36
+    n = 48
     p = 5
     minimal_roi = {
         "0": 0.03
     }
-    stoploss = -0.02
+    stoploss = -0.01
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -62,10 +62,10 @@ class TaSearch30m(IStrategy):
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
-                and row['rsi_7'] < 15 \
-                and row['macd'] < 0 \
-                and row['macdsignal'] < 0 \
-                and row['macdhist'] < 0:
+                and row['rsi_7'] > 30:
+                # and row['macd'] < 0 \
+                # and row['macdsignal'] < 0 \
+                # and row['macdhist'] < 0:
             return 'buy'
         else:
             return ''
