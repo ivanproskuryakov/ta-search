@@ -31,9 +31,10 @@ class TaSearch1m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 40 > df.loc[i]['rsi_7'] < 55:
+            if 40 > df.loc[i]['rsi_7'] < 50:
                 for x in range(i - 10, i):
                     if x > 1 and \
+                            i - x > 2 and \
                             df.loc[x]['ex_min_percentage'] and \
                             df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy'].loc[i] = 'buy'
