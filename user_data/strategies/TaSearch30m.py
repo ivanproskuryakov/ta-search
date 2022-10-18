@@ -62,10 +62,7 @@ class TaSearch30m(IStrategy):
     def __populate_buy(self, row: pd.DataFrame):
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
-                and row['rsi_7'] > 30:
-                # and row['macd'] < 0 \
-                # and row['macdsignal'] < 0 \
-                # and row['macdhist'] < 0:
+                and row['rsi_7'] > 35:
             return 'buy'
         else:
             return ''

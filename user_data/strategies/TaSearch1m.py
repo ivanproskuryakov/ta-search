@@ -12,7 +12,7 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 180
+    n = 120
     p = 2
     minimal_roi = {
         "0": 0.01
@@ -69,7 +69,7 @@ class TaSearch1m(IStrategy):
 
         if row['ex_min_percentage'] \
                 and row['ex_min_percentage'] < -self.p \
-                and row['rsi_7'] > 30:
+                and row['rsi_7'] > 35:
             return 'buy'
         else:
             return ''
