@@ -1,7 +1,7 @@
 import pandas as pd
-from freqtrade.strategy.interface import IStrategy
 
-from user_data.strategies.TaSearch1m import TaSearch
+from freqtrade.strategy.interface import IStrategy
+from taSearch import TaSearch
 
 
 class TaSearch30m(IStrategy):
@@ -32,9 +32,9 @@ class TaSearch30m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if df.loc[i]['rsi_7'] > 40:
-                for x in range(i - 5, i):
-                    if df.loc[x]['ex_min_percentage']:
+            if 40 > df.loc[i]['rsi_7'] < 50:
+                for x in range(i - 4, i):
+                    if df.loc[x]['ex_min_percentage'] and df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy'].loc[i] = 'buy'
 
         return df
