@@ -1,10 +1,7 @@
 import pandas as pd
-
-from datetime import datetime
-from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
 
-from taSearch import TaSearch
+from user_data.strategies.TaSearch1m import TaSearch
 
 
 class TaSearch30m(IStrategy):
@@ -27,11 +24,26 @@ class TaSearch30m(IStrategy):
     def populate_indicators(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.columns = ['date', 'open', 'high', 'low', 'close', 'volume']
         df = self.search.find_extremes(df)
+        df = self.find_buy_entry(df)
 
-        df['buy'] = df.apply(lambda row: self.__populate_buy(row), axis=1)
-        df['sell'] = df.apply(lambda row: self.__populate_sell(row), axis=1)
+        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
 
         return df
+
+    def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
+        for i, row in df[::-1].iterrows():
+            if df.loc[i]['rsi_7'] > 40:
+                for x in range(i - 5, i):
+                    if df.loc[x]['ex_min_percentage']:
+                        df['buy'].loc[i] = 'buy'
+
+        return df
+
+    def populate_sell(self, row: pd.DataFrame):
+        if row['rsi_7'] > 70:
+            return 'sell'
+        else:
+            return ''
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[(df['buy'] == 'buy'), 'buy'] = 1
@@ -40,38 +52,5 @@ class TaSearch30m(IStrategy):
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[(df['sell'] == 'sell'), 'sell'] = 1
-        df.loc[(df['sell'] == 'sell'), 'exit_tag'] = 'sell_signal_search'
 
         return df
-
-    def confirm_trade_exit(self, pair: str, trade: Trade, order_type: str, amount: float,
-                           rate: float, time_in_force: str, exit_reason: str,
-                           current_time: datetime, **kwargs) -> bool:
-        """
-        https://www.freqtrade.io/en/stable/strategy-advanced/
-        Reject force-sells with negative profit
-        This is just a sample, please adjust to your needs
-        (this does not necessarily make sense, assuming you know when you're force-selling)
-        """
-
-        if exit_reason == 'exit_signal' and trade.calc_profit_ratio(rate) < 0:
-            return False
-
-        return True
-
-    def __populate_buy(self, row: pd.DataFrame):
-        if row['ex_min_percentage'] \
-                and row['ex_min_percentage'] < -self.p \
-                and row['rsi_7'] > 35:
-            return 'buy'
-        else:
-            return ''
-
-    def __populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 85 \
-                and row['macd'] > 0 \
-                and row['macdsignal'] > 0 \
-                and row['macdhist'] > 0:
-            return 'sell'
-        else:
-            return ''

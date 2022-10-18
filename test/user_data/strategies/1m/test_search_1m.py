@@ -6,7 +6,7 @@ strategy = TaSearch1m({})
 
 
 def test_bnb():
-    path = 'fixture/1m/BNB_USDT_1m_1666072800.0_1666134000.0.json'
+    path = 'fixture/1m/BNB_USDT_1m_1666054800.0_1666112400.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[['date', 'open', 'high', 'low', 'close', 'volume']]

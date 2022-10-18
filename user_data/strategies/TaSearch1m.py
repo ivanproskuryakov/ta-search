@@ -4,7 +4,7 @@ from datetime import datetime
 from freqtrade.persistence.trade_model import Trade
 from freqtrade.strategy.interface import IStrategy
 
-from taSearch import TaSearch
+from user_data.strategies.taSearch import TaSearch
 
 
 class TaSearch1m(IStrategy):
@@ -12,7 +12,7 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 120
+    n = 180
     p = 2
     minimal_roi = {
         "0": 0.01

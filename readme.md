@@ -25,7 +25,8 @@ pip install --force-reinstall -r requirements.txt
 
 The command to download time series data for an interval
 ```
-python download.py BNB 1m 1666072800 1666134000
+python download.py BNB 1m 1666054800 1666112400
+python download.py BNB 30m 1665169200 1666112400
 ```
 
 Run tests
