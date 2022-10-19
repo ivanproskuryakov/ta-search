@@ -32,9 +32,10 @@ class TaSearch30m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 45 > df.loc[i]['rsi_7'] < 55:
-                for x in range(i - 5, i):
+            if 50 > df.loc[i]['rsi_7'] < 60:
+                for x in range(i - 10, i):
                     if x > 1 and \
+                            i - x > 1 and \
                             df.loc[x]['ex_min_percentage'] and \
                             df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy'].loc[i] = 'buy'
@@ -42,7 +43,7 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 70:
+        if row['rsi_7'] > 75:
             return 'sell'
         else:
             return ''

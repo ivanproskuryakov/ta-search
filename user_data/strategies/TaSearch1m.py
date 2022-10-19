@@ -9,7 +9,7 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 120
+    n = 180
     p = 1
     minimal_roi = {
         "0": 0.01
@@ -31,10 +31,10 @@ class TaSearch1m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 40 > df.loc[i]['rsi_7'] < 50:
-                for x in range(i - 10, i):
+            if 35 > df.loc[i]['rsi_7'] < 50:
+                for x in range(i - 30, i):
                     if x > 1 and \
-                            i - x > 2 and \
+                            i - x > 3 and \
                             df.loc[x]['ex_min_percentage'] and \
                             df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy'].loc[i] = 'buy'
@@ -42,7 +42,7 @@ class TaSearch1m(IStrategy):
         return df
 
     def populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 70:
+        if row['rsi_7'] > 75:
             return 'sell'
         else:
             return ''
