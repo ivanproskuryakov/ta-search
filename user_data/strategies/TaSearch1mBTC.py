@@ -10,7 +10,7 @@ from taSearch import TaSearch
 # from user_data.strategies.taSearch import TaSearch
 
 
-class TaSearch1m(IStrategy):
+class TaSearch1mBTC(IStrategy):
     search: TaSearch
     n: int
     p: float
@@ -20,7 +20,7 @@ class TaSearch1m(IStrategy):
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.01
+    stoploss = -1
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
@@ -37,7 +37,7 @@ class TaSearch1m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 45 < df.loc[i]['rsi_7'] < 60:
+            if 40 < df.loc[i]['rsi_7'] < 60:
                 for x in range(i - 60, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
@@ -48,7 +48,7 @@ class TaSearch1m(IStrategy):
         return df
 
     def populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 75:
+        if row['rsi_7'] > 80:
             return 'sell'
         else:
             return ''

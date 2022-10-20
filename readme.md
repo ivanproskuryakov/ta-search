@@ -4,6 +4,7 @@ Entry indicator detection library and strategies for FreqTrade trade bot, see `u
 
 ```
 freqtrade trade --config config.usdt.1m.json --strategy TaSearch1m --db-url sqlite:///search1mStrategy.sqlite
+freqtrade trade --config config.btc.1m.json --strategy TaSearch1mBTC --db-url sqlite:///taSearch1mBTC.sqlite
 freqtrade trade --config config.usdt.30m.json --strategy TaSearch30m --db-url sqlite:///search30mStrategy.sqlite
 ```
 
