@@ -9,12 +9,12 @@ class TaSearch1m(IStrategy):
     n: int
     p: float
 
-    n = 180
+    n = 240
     p = 1
     minimal_roi = {
         "0": 0.01
     }
-    stoploss = -0.005
+    stoploss = -0.01
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
@@ -30,14 +30,20 @@ class TaSearch1m(IStrategy):
         return df
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
+        signals = 0
+
         for i, row in df[::-1].iterrows():
-            if 35 > df.loc[i]['rsi_7'] < 50:
+            if 45 > df.loc[i]['rsi_7'] < 55:
                 for x in range(i - 30, i):
-                    if x > 1 and \
-                            i - x > 3 and \
-                            df.loc[x]['ex_min_percentage'] and \
-                            df.loc[x]['ex_min_percentage'] < -self.p:
-                        df['buy'].loc[i] = 'buy'
+                    if x > 1 \
+                            and i - x > 3 \
+                            and df.loc[x]['ex_min_percentage'] \
+                            and df.loc[x]['ex_min_percentage'] < -self.p:
+
+                        if signals < 5:
+                            signals = signals + 1
+                        else:
+                            df['buy'].loc[i] = 'buy'
 
         return df
 

@@ -14,7 +14,7 @@ class TaSearch30m(IStrategy):
     minimal_roi = {
         "0": 0.03
     }
-    stoploss = -0.01
+    stoploss = -0.02
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -32,7 +32,7 @@ class TaSearch30m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 50 > df.loc[i]['rsi_7'] < 60:
+            if 45 > df.loc[i]['rsi_7'] < 55:
                 for x in range(i - 10, i):
                     if x > 1 and \
                             i - x > 1 and \
