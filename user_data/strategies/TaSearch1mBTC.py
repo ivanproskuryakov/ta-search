@@ -4,12 +4,6 @@ from freqtrade.strategy.interface import IStrategy
 from taSearch import TaSearch
 
 
-#
-#
-#
-# from user_data.strategies.taSearch import TaSearch
-
-
 class TaSearch1mBTC(IStrategy):
     search: TaSearch
     n: int
@@ -31,27 +25,19 @@ class TaSearch1mBTC(IStrategy):
         df = self.search.find_extremes(df)
         df = self.find_buy_entry(df)
 
-        df['sell'] = df.apply(lambda row: self.populate_sell(row), axis=1)
-
         return df
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 40 < df.loc[i]['rsi_7'] < 60:
-                for x in range(i - 60, i):
+            if 20 < df.loc[i]['rsi_7'] < 40:
+                for x in range(i - 30, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
                             and df.loc[x]['ex_min_percentage'] < -self.p \
-                            and i - x > 20:
+                            and i - x > 10:
                         df['buy'].loc[i] = 'buy'
 
         return df
-
-    def populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 80:
-            return 'sell'
-        else:
-            return ''
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[(df['buy'] == 'buy'), 'buy'] = 1
