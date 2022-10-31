@@ -10,11 +10,11 @@ class TaSearch30m(IStrategy):
     p: float
 
     n = 72
-    p = 6
+    p = 5
     minimal_roi = {
         "0": 0.03
     }
-    stoploss = -0.05
+    stoploss = -0.1
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -35,7 +35,7 @@ class TaSearch30m(IStrategy):
             if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -self.p:
                 c = 0
                 for x in range(i - 48, i):
-                    if df.loc[x]['rsi_7'] < 25:
+                    if x > 1 and df.loc[x]['rsi_7'] < 30:
                         c += 1
                         df['buy_past_rsi'].loc[x] = c
                         df['buy_past_rsi'].loc[i] = c
@@ -54,11 +54,11 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['buy_stride'] != ''), 'buy'] = 'buy'
+        df.loc[(df['buy_stride'] > 0) & (df['buy_past_rsi'] > 2), 'buy'] = 1
 
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 75), 'sell'] = 'sell'
+        df.loc[(df['rsi_7'] > 70), 'sell'] = 1
 
         return df

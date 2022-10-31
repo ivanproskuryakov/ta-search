@@ -30,9 +30,6 @@ The command to download time series data for an interval
 python download.py BNB 1m 1666054800 1666112400
 python download.py BNB 30m 1665169200 1666112400
 
-python download.py ADA 30m 1666310400 1667174400
-python download.py OCEAN 30m 1666310400 1667174400
-python download.py ONE 30m 1666310400 1667174400
 python download.py LDO 30m 1666310400 1667210709
 ```
 
