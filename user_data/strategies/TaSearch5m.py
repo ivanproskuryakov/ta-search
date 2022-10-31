@@ -4,23 +4,18 @@ from freqtrade.strategy.interface import IStrategy
 from taSearch import TaSearch
 
 
-#
-#
-#
-# from user_data.strategies.taSearch import TaSearch
-
-
-class TaSearch1m(IStrategy):
+class TaSearch5m(IStrategy):
     search: TaSearch
     n: int
     p: float
 
-    n = 240
-    p = 1
+    n = 144
+    p = 5
     minimal_roi = {
         "0": 0.01
     }
     stoploss = -0.01
+    timeframe = '5m'
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
@@ -37,18 +32,17 @@ class TaSearch1m(IStrategy):
 
     def find_buy_entry(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 45 < df.loc[i]['rsi_7'] < 60:
-                for x in range(i - 60, i):
-                    if x > 1 \
+            if 25 < df.loc[i]['rsi_7'] < 40:
+                for x in range(i - 24, i):
+                    if x > 1 and i - x > 2 \
                             and df.loc[x]['ex_min_percentage'] \
-                            and df.loc[x]['ex_min_percentage'] < -self.p \
-                            and i - x > 20:
+                            and df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy'].loc[i] = 'buy'
 
         return df
 
     def populate_sell(self, row: pd.DataFrame):
-        if row['rsi_7'] > 75:
+        if row['rsi_7'] > 80:
             return 'sell'
         else:
             return ''

@@ -29,11 +29,14 @@ class TaSearch:
         df['rsi_30'] = ta.RSI(df['close'], timeperiod=30)
         df['rsi_90'] = ta.RSI(df['close'], timeperiod=90)
 
-        macd, macdsignal, macdhist = ta.MACD(df['close'])
+        # macd, macdsignal, macdhist = ta.MACD(df['close'])
+        #
+        # df['macd'] = macd
+        # df['macdsignal'] = macdsignal
+        # df['macdhist'] = macdhist
 
-        df['macd'] = macd
-        df['macdsignal'] = macdsignal
-        df['macdhist'] = macdhist
+        df['buy_stride'] = ''
+        df['buy_past_rsi'] = ''
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''
