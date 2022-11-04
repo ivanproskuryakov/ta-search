@@ -54,7 +54,7 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['buy_stride'] > 0) & (df['buy_past_rsi'] > 2), 'buy'] = 1
+        df.loc[(df['buy_stride'] > 1) & (df['buy_past_rsi'] > 6), 'buy'] = 1
 
         return df
 

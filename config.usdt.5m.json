@@ -10,7 +10,7 @@
     "cancel_open_orders_on_exit": false,
     "trading_mode": "spot",
     "margin_mode": "",
-    "timeframe": "1m",
+    "timeframe": "5m",
     "unfilledtimeout": {
         "entry": 2,
         "exit": 2,
@@ -45,10 +45,14 @@
             "ADA/USDT",
             "SOL/USDT",
             "XRP/USDT",
+            "DOT/USDT",
             "ATOM/USDT",
+            "HBAR/USDT",
             "IOTA/USDT",
             "AVAX/USDT",
+            "ICP/USDT",
 
+            "COTI/USDT",
             "NEAR/USDT",
             "BAT/USDT",
             "WAVES/USDT",
@@ -66,14 +70,17 @@
             "OCEAN/USDT",
             "GRT/USDT",
             "ROSE/USDT",
+            "CTSI/USDT",
 
             "ZRX/USDT",
             "TRX/USDT",
             "ETC/USDT",
+            "BCH/USDT",
             "LINK/USDT",
             "FIL/USDT",
             "UNI/USDT",
             "GTC/USDT",
+            "POND/USDT",
 
             "SHIB/USDT",
             "LDO/USDT",
@@ -85,9 +92,7 @@
             "MANA/USDT",
 
             "DOGE/USDT",
-            "FTT/USDT",
-            "MKR/USDT",
-            "CAKE/USDT"
+            "FTT/USDT"
         ],
         "pair_blacklist": [
         ]
@@ -119,7 +124,7 @@
     "api_server": {
         "enabled": true,
         "listen_ip_address": "0.0.0.0",
-        "listen_port": 8001,
+        "listen_port": 8005,
         "verbosity": "error",
         "enable_openapi": false,
         "jwt_secret_key": "73a5d418ef03ca2e646fa0ae15a391e7fe0e53f29ffb4cfaace9d7aa4d34d6a5",
@@ -127,7 +132,7 @@
         "username": "admin",
         "password": "12qw12"
     },
-    "bot_name": "freqtrade 1m curated",
+    "bot_name": "freqtrade 5m curated",
     "initial_state": "running",
     "force_entry_enable": false,
     "internals": {
