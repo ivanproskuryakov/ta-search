@@ -10,11 +10,11 @@ class TaSearch30m(IStrategy):
     p: float
 
     n = 72
-    p = 5
+    p = 9
     minimal_roi = {
-        "0": 0.03
+        "0": 0.04
     }
-    stoploss = -0.1
+    stoploss = -0.03
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -59,6 +59,6 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 70), 'sell'] = 1
+        df.loc[(df['rsi_7'] > 75), 'sell'] = 1
 
         return df

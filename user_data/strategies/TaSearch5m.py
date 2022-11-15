@@ -10,11 +10,11 @@ class TaSearch5m(IStrategy):
     p: float
 
     n = 144
-    p = 2
+    p = 5
     minimal_roi = {
-        "0": 0.01
+        "0": 0.03
     }
-    stoploss = -0.05
+    stoploss = -0.02
     timeframe = '5m'
 
     def __init__(self, config: dict) -> None:
@@ -54,11 +54,11 @@ class TaSearch5m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['buy_stride'] > 1) & (df['buy_past_rsi'] > 6), 'buy'] = 1
+        df.loc[(df['buy_stride'] > 1) & (df['buy_past_rsi'] > 10), 'buy'] = 1
 
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 70), 'sell'] = 1
+        df.loc[(df['rsi_7'] > 80), 'sell'] = 1
 
         return df

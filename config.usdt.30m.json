@@ -93,7 +93,8 @@
             "MANA/USDT",
 
             "DOGE/USDT",
-            "FTT/USDT"
+            "TWT/USDT",
+            "APT/USDT"
         ],
         "pair_blacklist": [
         ]
