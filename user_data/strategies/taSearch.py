@@ -26,15 +26,8 @@ class TaSearch:
 
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
-        df['rsi_30'] = ta.RSI(df['close'], timeperiod=30)
-        df['rsi_90'] = ta.RSI(df['close'], timeperiod=90)
 
-        # macd, macdsignal, macdhist = ta.MACD(df['close'])
-        #
-        # df['macd'] = macd
-        # df['macdsignal'] = macdsignal
-        # df['macdhist'] = macdhist
-
+        df['mean'] = 0
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
 
@@ -89,6 +82,27 @@ class TaSearch:
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
         return df
+
+    def mean(self, df: pd.DataFrame, n: int) -> []:
+        n0 = n - self.n
+        n25 = n0 + int(self.n / 4)
+        n50 = n0 + int(self.n / 2)
+        n75 = n0 + int(self.n / 2) + int(self.n / 4)
+        n100 = n
+
+        mean = df[n0: n100]['close'].mean()
+        mean2 = [
+            df[n0: n50]['close'].mean(),
+            df[n50: n100]['close'].mean(),
+        ]
+        mean4 = [
+            df[n0: n25]['close'].mean(),
+            df[n25: n50]['close'].mean(),
+            df[n50: n75]['close'].mean(),
+            df[n75: n100]['close'].mean(),
+        ]
+
+        return mean, mean2, mean4
 
     def __diff_percentage(self, v2, v1) -> float:
         diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100

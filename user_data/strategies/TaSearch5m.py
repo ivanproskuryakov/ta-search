@@ -1,7 +1,7 @@
 import pandas as pd
 
 from freqtrade.strategy.interface import IStrategy
-from taSearch import TaSearch
+from .taSearch import TaSearch
 
 
 class TaSearch5m(IStrategy):
@@ -14,7 +14,7 @@ class TaSearch5m(IStrategy):
     minimal_roi = {
         "0": 0.03
     }
-    stoploss = -0.02
+    stoploss = -0.05
     timeframe = '5m'
 
     def __init__(self, config: dict) -> None:
@@ -35,30 +35,34 @@ class TaSearch5m(IStrategy):
             if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -self.p:
                 c = 0
                 for x in range(i - 48, i):
-                    if x > 1 and df.loc[x]['rsi_7'] < 30:
+                    if x > 1 and df.loc[x]['rsi_7'] < 25:
                         c += 1
+                        mean = self.search.mean(df=df, n=i)
                         df['buy_past_rsi'].loc[x] = c
                         df['buy_past_rsi'].loc[i] = c
+
+                        df['mean'].loc[i] = mean[0]
 
         return df
 
     def buy_stride(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 25 < df.loc[i]['rsi_7'] < 40:
+            if 20 < df.loc[i]['rsi_7'] < 35:
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
                             and df.loc[x]['ex_min_percentage'] < -self.p:
                         df['buy_stride'].loc[i] = i - x
                         df['buy_past_rsi'].loc[i] = df.loc[x]['buy_past_rsi']
+                        # df['mean'].loc[i] = 1000
         return df
 
-    def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['buy_stride'] > 1) & (df['buy_past_rsi'] > 10), 'buy'] = 1
+    def populate_buy_trend(self, df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[(df['buy_stride'] > 2) & (df['buy_past_rsi'] > 4), 'buy'] = 1
 
         return df
 
-    def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+    def populate_sell_trend(self, df: pd.DataFrame) -> pd.DataFrame:
         df.loc[(df['rsi_7'] > 80), 'sell'] = 1
 
         return df

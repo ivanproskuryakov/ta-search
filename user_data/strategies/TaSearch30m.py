@@ -1,7 +1,7 @@
 import pandas as pd
 
 from freqtrade.strategy.interface import IStrategy
-from user_data.strategies.taSearch import TaSearch
+from .taSearch import TaSearch
 
 
 class TaSearch30m(IStrategy):
@@ -10,11 +10,11 @@ class TaSearch30m(IStrategy):
     p: float
 
     n = 72
-    p = 9
+    p = 10
     minimal_roi = {
-        "0": 0.04
+        "0": 0.05
     }
-    stoploss = -0.03
+    stoploss = -0.07
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -35,7 +35,7 @@ class TaSearch30m(IStrategy):
             if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -self.p:
                 c = 0
                 for x in range(i - 48, i):
-                    if x > 1 and df.loc[x]['rsi_7'] < 30:
+                    if x > 1 and df.loc[x]['rsi_7'] < 25:
                         c += 1
                         df['buy_past_rsi'].loc[x] = c
                         df['buy_past_rsi'].loc[i] = c
@@ -44,7 +44,7 @@ class TaSearch30m(IStrategy):
 
     def buy_stride(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 25 < df.loc[i]['rsi_7'] < 40:
+            if 30 < df.loc[i]['rsi_7'] < 45:
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
@@ -54,11 +54,11 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['buy_stride'] > 1) & (df['buy_past_rsi'] > 6), 'buy'] = 1
+        df.loc[(df['buy_stride'] > 2) & (df['buy_past_rsi'] > 6), 'buy'] = 1
 
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 75), 'sell'] = 1
+        df.loc[(df['rsi_7'] > 80), 'sell'] = 1
 
         return df

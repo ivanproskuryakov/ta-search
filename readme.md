@@ -32,6 +32,6 @@ python download.py LDO 30m 1666310400 1667210709
 Run tests
 ```
 python -m pytest test
-python -m pytest -s test/user_data/strategies/5m/test_search_5m.py
-python -m pytest -s test/user_data/strategies/30m/test_search_30m.py
+python -m pytest -s test/user_data/strategies/test_search_5m.py
+python -m pytest -s test/user_data/strategies/test_search_30m.py
 ```

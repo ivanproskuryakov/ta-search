@@ -94,7 +94,8 @@
 
             "DOGE/USDT",
             "TWT/USDT",
-            "APT/USDT"
+            "APT/USDT",
+            "DODO/USDT"
         ],
         "pair_blacklist": [
         ]

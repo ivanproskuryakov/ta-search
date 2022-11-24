@@ -5,8 +5,8 @@ dataset_builder = DatasetBuilder()
 strategy = TaSearch5m({})
 
 
-def test_bnb():
-    path = 'fixture/1m/BNB_USDT_1m_1666054800.0_1666112400.0.json'
+def test_ldo():
+    path = 'fixture/LDO_USDT_30m_1666310400.0_1667210709.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[['date', 'open', 'high', 'low', 'close', 'volume']]
