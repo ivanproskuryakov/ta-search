@@ -27,7 +27,7 @@ class TaSearch:
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
 
-        df['mean'] = 0
+        df['market'] = 0
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
 
@@ -82,6 +82,15 @@ class TaSearch:
         df['ex_max'] = df['ex_max'].apply(lambda x: x if float(x) > 0 else '')
 
         return df
+
+    def market(self, df: pd.DataFrame, n: int) -> int:
+        mean = self.mean(df=df, n=n)
+        market = 1
+
+        if mean[2][3] < mean[0] and mean[1][1] < mean[0] and mean[2][3] < mean[0]:
+            market = -1
+
+        return market
 
     def mean(self, df: pd.DataFrame, n: int) -> []:
         n0 = n - self.n

@@ -11,5 +11,7 @@ def test_ldo():
     df = dataset_builder.from_file(path)
     df = df[['date', 'open', 'high', 'low', 'close', 'volume']]
     df = strategy.populate_indicators(df, {})
+    df = strategy.populate_buy_trend(df)
+    df = strategy.populate_sell_trend(df)
 
     print(df)
