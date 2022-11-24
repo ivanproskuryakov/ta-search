@@ -1,4 +1,6 @@
 ## Description
+![CI](https://github.com/ivanproskuryakov/ta-search/workflows/CI/badge.svg)
+
 
 Entry indicator detection library and strategies for FreqTrade trade bot, see `user_data/strategies` directory.  
 
