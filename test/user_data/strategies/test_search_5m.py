@@ -6,7 +6,7 @@ strategy = TaSearch5m({})
 
 
 def test_ldo():
-    path = 'fixture/LDO_USDT_30m_1666310400.0_1667210709.0.json'
+    path = 'fixture/LDO_USDT_5m_1666310400.0_1667210709.0.json'
 
     df = dataset_builder.from_file(path)
     df = df[['date', 'open', 'high', 'low', 'close', 'volume']]

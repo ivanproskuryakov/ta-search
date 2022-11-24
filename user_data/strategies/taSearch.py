@@ -27,7 +27,7 @@ class TaSearch:
         df['id'] = range(0, len(df))
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
 
-        df['market'] = 0
+        df['market'] = ''
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
 
@@ -87,7 +87,7 @@ class TaSearch:
         mean = self.mean(df=df, n=n)
         market = 1
 
-        if mean[2][3] < mean[0] and mean[1][1] < mean[0] and mean[2][3] < mean[0]:
+        if mean[2][3] < mean[1][0] and mean[2][3] < mean[0]:
             market = -1
 
         return market
