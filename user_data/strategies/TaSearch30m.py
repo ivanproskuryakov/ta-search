@@ -59,6 +59,6 @@ class TaSearch30m(IStrategy):
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 80), 'sell'] = 1
+        df.loc[(df['rsi_7'] > 85), 'sell'] = 1
 
         return df

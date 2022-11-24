@@ -61,16 +61,16 @@ class TaSearch5m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame) -> pd.DataFrame:
-        df.loc[
-            (df['buy_stride'] != -1) &
-            (df['buy_past_rsi'] > 1) &
-            (df['market'] == -1),
-            'buy'
-        ] = 1
+        # df.loc[
+        #     (df['buy_stride'] != -1) &
+        #     (df['buy_past_rsi'] > 1) &
+        #     (df['market'] == -1),
+        #     'buy'
+        # ] = 1
 
         df.loc[
             (df['buy_stride'] > 2) &
-            (df['buy_past_rsi'] > 4) &
+            (df['buy_past_rsi'] >= 3) &
             (df['market'] == -1),
             'buy'
         ] = 1
@@ -78,6 +78,6 @@ class TaSearch5m(IStrategy):
         return df
 
     def populate_sell_trend(self, df: pd.DataFrame) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 80), 'sell'] = 1
+        df.loc[(df['rsi_7'] > 85), 'sell'] = 1
 
         return df
