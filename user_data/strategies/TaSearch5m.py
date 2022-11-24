@@ -42,7 +42,7 @@ class TaSearch5m(IStrategy):
                         df['buy_past_rsi'].loc[i] = c
 
                         # df['market'].loc[x] = self.search.market(df=df, n=x)
-                        df['market'].loc[i] = self.search.market(df=df, n=i)
+                        # df['market'].loc[i] = self.search.market(df=df, n=i)
 
         return df
 
@@ -53,14 +53,13 @@ class TaSearch5m(IStrategy):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
                             and df.loc[x]['ex_min_percentage'] < -self.p:
-
                         df['buy_stride'].loc[i] = i - x
                         df['buy_past_rsi'].loc[i] = df.loc[x]['buy_past_rsi']
 
                         df['market'].loc[i] = self.search.market(df=df, n=i)
         return df
 
-    def populate_buy_trend(self, df: pd.DataFrame) -> pd.DataFrame:
+    def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         # df.loc[
         #     (df['buy_stride'] != -1) &
         #     (df['buy_past_rsi'] > 1) &
@@ -77,7 +76,7 @@ class TaSearch5m(IStrategy):
 
         return df
 
-    def populate_sell_trend(self, df: pd.DataFrame) -> pd.DataFrame:
-        df.loc[(df['rsi_7'] > 85), 'sell'] = 1
+    def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+        df.loc[(df['rsi_7'] > 80), 'sell'] = 1
 
         return df
