@@ -7,14 +7,21 @@ from scipy import signal
 
 class TaSearch:
     n: int
-    p: float
 
-    def __init__(self, n: int, p: float):
+    def __init__(self, n: int):
         self.n = n
-        self.p = p
         pd.set_option('display.max_rows', 100000)
         pd.set_option('display.precision', 10)
         pd.set_option('mode.chained_assignment', None)
+
+    def percentage(self, df: pd.DataFrame) -> float:
+        # mean = df['close'].mean()
+        max = df['close'].max()
+        min = df['close'].min()
+
+        p = self.diff_percentage(min, max)
+
+        return abs(p)
 
     def find_extremes(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -28,6 +35,7 @@ class TaSearch:
         df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
 
         df['market'] = ''
+        df['percentage'] = ''
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
 
@@ -51,7 +59,7 @@ class TaSearch:
 
             if last.size > 0:
                 per = float(
-                    self.__diff_percentage(
+                    self.diff_percentage(
                         v1=ex_min.loc[id]['close'],
                         v2=last['close']
                     )
@@ -70,7 +78,7 @@ class TaSearch:
 
             if last.size > 0:
                 per = float(
-                    self.__diff_percentage(
+                    self.diff_percentage(
                         v2=ex_max.loc[id]['close'],
                         v1=last['close']
                     )
@@ -113,7 +121,7 @@ class TaSearch:
 
         return mean, mean2, mean4
 
-    def __diff_percentage(self, v2, v1) -> float:
+    def diff_percentage(self, v2, v1) -> float:
         diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
         diff = np.round(diff, 4)
 

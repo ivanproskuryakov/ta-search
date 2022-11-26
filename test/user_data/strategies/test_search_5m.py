@@ -14,4 +14,5 @@ def test_ldo():
     df = strategy.populate_buy_trend(df, {})
     df = strategy.populate_sell_trend(df, {})
 
+    # print(df)
     assert df.loc[2545]['buy'] == 1

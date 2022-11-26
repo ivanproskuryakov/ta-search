@@ -1,16 +1,13 @@
 import pandas as pd
 
 from freqtrade.strategy.interface import IStrategy
-from .taSearch import TaSearch
+from taSearch import TaSearch
 
 
 class TaSearch5m(IStrategy):
     search: TaSearch
-    n: int
-    p: float
 
-    n = 144
-    p = 5
+    n: int = 144
     minimal_roi = {
         "0": 0.03
     }
@@ -19,12 +16,12 @@ class TaSearch5m(IStrategy):
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
-        self.search = TaSearch(n=self.n, p=self.p)
+        self.search = TaSearch(n=self.n)
 
     def populate_indicators(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.columns = ['date', 'open', 'high', 'low', 'close', 'volume']
-        df = self.search.find_extremes(df)
 
+        df = self.search.find_extremes(df)
         df = self.buy_past_rsi(df)
         df = self.buy_stride(df)
 
@@ -32,7 +29,9 @@ class TaSearch5m(IStrategy):
 
     def buy_past_rsi(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -self.p:
+            df['percentage'].loc[i] = self.search.percentage(df[i - 100:i - 24])
+
+            if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -df.loc[i]['percentage']:
                 c = 0
                 for x in range(i - 48, i):
                     if x > 1 and df.loc[x]['rsi_7'] < 25:
@@ -40,9 +39,6 @@ class TaSearch5m(IStrategy):
 
                         df['buy_past_rsi'].loc[x] = c
                         df['buy_past_rsi'].loc[i] = c
-
-                        # df['market'].loc[x] = self.search.market(df=df, n=x)
-                        # df['market'].loc[i] = self.search.market(df=df, n=i)
 
         return df
 
@@ -52,7 +48,7 @@ class TaSearch5m(IStrategy):
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
-                            and df.loc[x]['ex_min_percentage'] < -self.p:
+                            and df.loc[x]['ex_min_percentage'] < -df.loc[x]['percentage']:
                         df['buy_stride'].loc[i] = i - x
                         df['buy_past_rsi'].loc[i] = df.loc[x]['buy_past_rsi']
 
@@ -60,16 +56,9 @@ class TaSearch5m(IStrategy):
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
-        # df.loc[
-        #     (df['buy_stride'] != -1) &
-        #     (df['buy_past_rsi'] > 1) &
-        #     (df['market'] == -1),
-        #     'buy'
-        # ] = 1
-
         df.loc[
-            (df['buy_stride'] > 2) &
-            (df['buy_past_rsi'] >= 3) &
+            (df['buy_stride'] > 1) & (df['buy_stride'] < 10) &
+            (df['buy_past_rsi'] >= 1) &
             (df['market'] == -1),
             'buy'
         ] = 1
