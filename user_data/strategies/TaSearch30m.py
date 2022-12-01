@@ -1,7 +1,7 @@
 import pandas as pd
 
 from freqtrade.strategy.interface import IStrategy
-from taSearch import TaSearch
+from .taSearch import TaSearch
 
 
 class TaSearch30m(IStrategy):
@@ -11,7 +11,7 @@ class TaSearch30m(IStrategy):
     minimal_roi = {
         "0": 0.05
     }
-    stoploss = -0.07
+    stoploss = -0.1
     timeframe = '30m'
 
     def __init__(self, config: dict) -> None:
@@ -29,7 +29,7 @@ class TaSearch30m(IStrategy):
 
     def buy_past_rsi(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            df['percentage'].loc[i] = self.search.percentage(df[i - 48 * 4:i - 24]) * 0.7
+            df['percentage'].loc[i] = self.search.percentage(df[i - 48 * 4:i - 24])  # * 0.7
 
             if df.loc[i]['ex_min_percentage'] and df.loc[i]['ex_min_percentage'] < -df.loc[i]['percentage']:
                 c = 0
@@ -54,13 +54,12 @@ class TaSearch30m(IStrategy):
 
                         df['market'].loc[i] = self.search.market(df=df, n=i)
                         df['percentage'].loc[i] = df.loc[i]['percentage']
-
         return df
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[
-            (df['buy_stride'] > 1) & (df['buy_stride'] < 10) &
-            (df['buy_past_rsi'] > -1) &
+            (df['buy_stride'] > 2) & (df['buy_stride'] < 10) &
+            (df['buy_past_rsi'] > 3) &
             (df['market'] == -1),
             'buy'
         ] = 1
