@@ -13,7 +13,8 @@ class TaSearchDynamic5m(IStrategy):
     n: int = 72
     minimal_roi = {
         "0": 0.02,
-        "180": 0.01,
+        "100": 0.01,
+        "200": 0.005,
     }
     stoploss = -0.02
     timeframe = '5m'
@@ -51,13 +52,12 @@ class TaSearchDynamic5m(IStrategy):
 
     def buy_stride(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 10 < df.loc[i]['rsi_7'] < 50:
+            if 20 < df.loc[i]['rsi_7'] < 50:
 
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
                             and df.loc[x]['ex_min_percentage'] < -df.loc[x]['percentage']:
-
                         candles = i - x
 
                         df['buy_stride'].loc[i] = candles
