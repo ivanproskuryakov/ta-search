@@ -5,16 +5,23 @@ import talib.abstract as ta
 from scipy import signal
 
 
-class TaSearch:
+class TaSearchDynamic:
     n: int
-    p: float
 
-    def __init__(self, n: int, p: float):
+    def __init__(self, n: int):
         self.n = n
-        self.p = p
         pd.set_option('display.max_rows', 100000)
         pd.set_option('display.precision', 10)
         pd.set_option('mode.chained_assignment', None)
+
+    def percentage(self, df: pd.DataFrame) -> float:
+        # mean = df['close'].mean()
+        max = df['close'].max()
+        min = df['close'].min()
+
+        p = self.diff_percentage(min, max)
+
+        return abs(p)
 
     def find_extremes(self, df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -29,28 +36,21 @@ class TaSearch:
         df['rsi_30'] = ta.RSI(df['close'], timeperiod=30)
 
         df['market'] = ''
+        df['percentage'] = ''
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''
-        df['ex_min'] = df.iloc[signal.argrelextrema(
-            df.close.values,
-            np.less_equal,
-            order=self.n
-        )[0]]['close']
+        df['ex_min'] = df.iloc[signal.argrelextrema(df.close.values, np.less_equal, order=self.n)[0]]['close']
         df['ex_max_percentage'] = ''
-        df['ex_max'] = df.iloc[signal.argrelextrema(
-            df.close.values,
-            np.greater_equal,
-            order=self.n
-        )[0]]['close']
+        df['ex_max'] = df.iloc[signal.argrelextrema(df.close.values, np.greater_equal, order=self.n)[0]]['close']
         df['sell'] = ''
 
         # find Min
         # -----
 
-        ex_min = df.query('ex_min > 0')
+        ex_min = df.query(f'ex_min > 0')
         ex_min_index = ex_min.index.values.tolist()
         ex_min_index.reverse()
 
@@ -60,7 +60,7 @@ class TaSearch:
 
             if last.size > 0:
                 per = float(
-                    self.__diff_percentage(
+                    self.diff_percentage(
                         v1=ex_min.loc[id]['close'],
                         v2=last['close']
                     )
@@ -69,7 +69,7 @@ class TaSearch:
 
         # find Max
         # -----
-        ex_max = df.query('ex_max > 0')
+        ex_max = df.query(f'ex_max > 0')
         ex_max_index = ex_max.index.values.tolist()
         ex_max_index.reverse()
 
@@ -79,7 +79,7 @@ class TaSearch:
 
             if last.size > 0:
                 per = float(
-                    self.__diff_percentage(
+                    self.diff_percentage(
                         v2=ex_max.loc[id]['close'],
                         v1=last['close']
                     )
@@ -122,7 +122,7 @@ class TaSearch:
 
         return mean, mean2, mean4
 
-    def __diff_percentage(self, v2, v1) -> float:
+    def diff_percentage(self, v2, v1) -> float:
         diff = ((v2 - v1) / ((v2 + v1) / 2)) * 100
         diff = np.round(diff, 4)
 

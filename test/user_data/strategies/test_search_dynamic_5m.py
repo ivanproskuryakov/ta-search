@@ -1,8 +1,8 @@
 from src.service.dataset_builder import DatasetBuilder
-from user_data.strategies.TaSearch5m import TaSearch5m
+from user_data.strategies.TaSearchDynamic5m import TaSearchDynamic5m
 
 dataset_builder = DatasetBuilder()
-strategy = TaSearch5m({})
+strategy = TaSearchDynamic5m({})
 
 
 def test_ldo():
@@ -14,6 +14,7 @@ def test_ldo():
     df = strategy.populate_buy_trend(df, {})
     df = strategy.populate_sell_trend(df, {})
 
+    # print(df)
     assert df.loc[2545]['buy'] == 1
 
 def test_xrp():
@@ -25,4 +26,5 @@ def test_xrp():
     df = strategy.populate_buy_trend(df, {})
     df = strategy.populate_sell_trend(df, {})
 
+    # print(df)
     assert df.loc[644]['ex_min_percentage'] == -2.1928
