@@ -10,10 +10,10 @@ from .TaSearchDynamic import TaSearchDynamic
 class TaSearchDynamic5m(IStrategy):
     search: TaSearchDynamic
 
-    n: int = 144
+    n: int = 72
     minimal_roi = {
         "0": 0.02,
-        "240": 0.01,
+        "180": 0.01,
     }
     stoploss = -0.02
     timeframe = '5m'
@@ -33,7 +33,7 @@ class TaSearchDynamic5m(IStrategy):
 
     def buy_past_rsi(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            df['percentage'].loc[i] = self.search.percentage(df[i - 72:i - 12])
+            df['percentage'].loc[i] = self.search.percentage(df[i - self.n:i - 12])
 
             if df.loc[i]['ex_min_percentage'] and \
                     df.loc[i]['ex_min_percentage'] < -df.loc[i]['percentage']:
@@ -51,12 +51,16 @@ class TaSearchDynamic5m(IStrategy):
 
     def buy_stride(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
-            if 10 < df.loc[i]['rsi_7'] < 45:
+            if 10 < df.loc[i]['rsi_7'] < 50:
+
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
                             and df.loc[x]['ex_min_percentage'] < -df.loc[x]['percentage']:
-                        df['buy_stride'].loc[i] = i - x
+
+                        candles = i - x
+
+                        df['buy_stride'].loc[i] = candles
                         df['buy_past_rsi'].loc[i] = df.loc[x]['buy_past_rsi']
 
                         df['market'].loc[i] = self.search.market(df=df, n=i)
@@ -64,8 +68,8 @@ class TaSearchDynamic5m(IStrategy):
 
     def populate_buy_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[
-            (df['buy_stride'] > 2) & (df['buy_stride'] < 10) &
-            (df['buy_past_rsi'] > 2) &
+            (df['buy_stride'] > -1) & (df['buy_stride'] < 10) &
+            (df['buy_past_rsi'] > -1) &
             (df['market'] == -1),
             'buy'
         ] = 1
@@ -74,8 +78,8 @@ class TaSearchDynamic5m(IStrategy):
 
     def populate_sell_trend(self, df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
         df.loc[
-            (df['rsi_7'] > 80) |
-            (df['rsi_30'] > 65),
+            (df['rsi_7'] > 75) |
+            (df['rsi_30'] > 60),
             'sell'
         ] = 1
 
