@@ -27,16 +27,32 @@ class TaSearchDynamic5m(IStrategy):
         df.columns = ['date', 'open', 'high', 'low', 'close', 'volume']
 
         df = self.search.find_extremes(df)
+        df = self.buy_volume(df)
         df = self.buy_past_rsi(df)
         df = self.buy_stride(df)
 
         return df
+
+    def buy_volume(self, df: pd.DataFrame) -> pd.DataFrame:
+        for i, row in df[::-1].iterrows():
+            df['volume_mean'].loc[i] = round(df[i - self.n:i]['volume'].mean(), 0)
+
+            for x in range(i - 10, i):
+                candles = 0
+
+                if x > 1 and df.loc[x]['volume'] > df.loc[i]['volume_mean'] * 2:
+                    candles += 1
+
+                    df['buy_volume'].loc[x] = 1000
+        return df
+
 
     def buy_past_rsi(self, df: pd.DataFrame) -> pd.DataFrame:
         for i, row in df[::-1].iterrows():
             df['percentage'].loc[i] = self.search.percentage(df[i - self.n:i - 12])
 
             if df.loc[i]['ex_min_percentage'] and \
+                    df.loc[i]['buy_volume'] > 1 and \
                     df.loc[i]['ex_min_percentage'] < -df.loc[i]['percentage']:
 
                 candles = 0
@@ -57,6 +73,7 @@ class TaSearchDynamic5m(IStrategy):
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
+                            and df.loc[x]['buy_volume'] > 1 \
                             and df.loc[x]['ex_min_percentage'] < -df.loc[x]['percentage']:
                         candles = i - x
 
@@ -70,7 +87,8 @@ class TaSearchDynamic5m(IStrategy):
         df.loc[
             (df['buy_stride'] > -1) & (df['buy_stride'] < 10) &
             (df['buy_past_rsi'] > -1) &
-            (df['market'] == -1),
+            (df['market'] == -1)
+            ,
             'buy'
         ] = 1
 

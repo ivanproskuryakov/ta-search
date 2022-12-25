@@ -32,13 +32,15 @@ class TaSearchDynamic:
         """
 
         df['id'] = range(0, len(df))
-        df['rsi_7'] = ta.RSI(df['close'], timeperiod=7)
-        df['rsi_30'] = ta.RSI(df['close'], timeperiod=30)
+        df['rsi_7'] = ta.RSI(df['close'], timeperiod=7).round(2)
+        df['rsi_30'] = ta.RSI(df['close'], timeperiod=30).round(2)
 
         df['market'] = ''
         df['percentage'] = ''
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
+        df['buy_volume'] = -1
+        df['volume_mean'] = -1
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''

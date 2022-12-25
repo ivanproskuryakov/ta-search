@@ -31,6 +31,7 @@ class TaSearch:
         df['market'] = ''
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
+        df['buy_volume'] = 's'
 
         df['buy'] = ''
         df['ex_min_percentage'] = ''

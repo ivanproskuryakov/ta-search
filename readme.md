@@ -29,6 +29,8 @@ The command to download time series data for an interval
 ```
 python download.py LDO 5m 1666310400 1667210709
 python download.py LDO 30m 1666310400 1667210709
+
+python download.py TWT 5m 1671926400 1672099200
 ```
 
 Run tests
