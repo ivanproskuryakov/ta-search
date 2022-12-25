@@ -43,7 +43,7 @@ class TaSearchDynamic5m(IStrategy):
                 if x > 1 and df.loc[x]['volume'] > df.loc[i]['volume_mean'] * 2:
                     candles += 1
 
-                    df['buy_volume'].loc[x] = 1000
+                    df['buy_volume'].loc[x] = candles
         return df
 
 
@@ -52,7 +52,7 @@ class TaSearchDynamic5m(IStrategy):
             df['percentage'].loc[i] = self.search.percentage(df[i - self.n:i - 12])
 
             if df.loc[i]['ex_min_percentage'] and \
-                    df.loc[i]['buy_volume'] > 1 and \
+                    df.loc[i]['buy_volume'] > -1 and \
                     df.loc[i]['ex_min_percentage'] < -df.loc[i]['percentage']:
 
                 candles = 0
@@ -73,7 +73,7 @@ class TaSearchDynamic5m(IStrategy):
                 for x in range(i - 24, i):
                     if x > 1 \
                             and df.loc[x]['ex_min_percentage'] \
-                            and df.loc[x]['buy_volume'] > 1 \
+                            and df.loc[x]['buy_volume'] > -1 \
                             and df.loc[x]['ex_min_percentage'] < -df.loc[x]['percentage']:
                         candles = i - x
 
