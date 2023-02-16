@@ -37,6 +37,7 @@ class TaSearchDynamic:
 
         df['market'] = ''
         df['percentage'] = ''
+        df['buy_min'] = -1
         df['buy_stride'] = -1
         df['buy_past_rsi'] = -1
         df['buy_volume'] = -1
