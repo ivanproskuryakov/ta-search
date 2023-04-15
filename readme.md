@@ -5,8 +5,9 @@
 Entry indicator detection library and strategies for FreqTrade trade bot, see `user_data/strategies` directory.  
 
 ```
-freqtrade trade --config config.usdt.5m.json --strategy TaSearch5m --db-url sqlite:///search5mStrategy.sqlite
-freqtrade trade --config config.usdt.30m.json --strategy TaSearch30m --db-url sqlite:///search30mStrategy.sqlite
+freqtrade trade --config config.5m.json --strategy TaSearchLevelG15m --db-url sqlite:///TaSearchLevelG15m.5m.sqlite
+freqtrade trade --config config.15m.json --strategy TaSearchLevelH15m --db-url sqlite:///TaSearchLevelH15m.15m.sqlite
+freqtrade trade --config config.30m.json --strategy TaSearchLevelL30m --db-url sqlite:///TaSearchLevelL15m.30m.sqlite
 ```
 
 ![model predict](doc/freqtrade_1m.png)
