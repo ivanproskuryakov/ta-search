@@ -29,13 +29,13 @@ The command to download time series data for an interval
 ```
 python download.py LDO 5m 1666310400 1667210709
 python download.py LDO 30m 1666310400 1667210709
-
-python download.py TWT 5m 1671926400 1672099200
 ```
 
 Run tests
 ```
 python -m pytest test
-python -m pytest -s test/user_data/strategies/test_search_5m.py
-python -m pytest -s test/user_data/strategies/test_search_30m.py
+or 
+python -m pytest -s test/user_data/strategies/test_TaSearchLevelG15m.py
+python -m pytest -s test/user_data/strategies/test_TaSearchLevelH15m.py
+python -m pytest -s test/user_data/strategies/test_TaSearchLevelJ15m.py
 ```
